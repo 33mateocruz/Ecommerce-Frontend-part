@@ -1,24 +1,12 @@
-import "./App.css";
+import './App.css';
+import Footer from './components/footer.jsx';
 
-const Header = () => {
+function App() {
   return (
-    <div className="headerC">
-      <header className="header">
-        <h1 className="titulo">Mi Sitio</h1>
-        <nav className="navbar">
-          <a href="#inicio" className="link">
-            Inicio
-          </a>
-          <a href="#sobre-mi" className="link">
-            Sobre mí
-          </a>
-          <a href="#contacto" className="link">
-            Contacto
-          </a>
-        </nav>
-      </header>
+    <div>
+      <Footer />
     </div>
   );
-};
+}
 
-export default Header;
+export default App;
