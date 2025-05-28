@@ -10,7 +10,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import logo from "../components/img/logo.png";
 import login from "../components/img/gente-pic.png";
 import cart from "../components/img/carro-de-la-compra.png";
-import LoginModal from "./LoginModal"; // Adjust path if needed
+import LoginModal from "./LoginModal"; 
 
 function NavBar() {
   const [showLogin, setShowLogin] = useState(false);
