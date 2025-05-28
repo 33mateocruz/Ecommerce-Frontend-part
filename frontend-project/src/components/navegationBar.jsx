@@ -1,4 +1,5 @@
 import "./NavegationBar.css";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -8,10 +9,15 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import logo from "../components/img/logo.png";
 import login from "../components/img/gente-pic.png";
-import cart from "../components/img/carro-de-la-compra.png"
-import Modal from "react-bootstrap/Modal";
+import cart from "../components/img/carro-de-la-compra.png";
+import LoginModal from "./LoginModal"; // Adjust path if needed
 
 function NavBar() {
+  const [showLogin, setShowLogin] = useState(false);
+
+  const handleLoginOpen = () => setShowLogin(true);
+  const handleLoginClose = () => setShowLogin(false);
+
   return (
     <>
       {[false].map((expand) => (
@@ -39,7 +45,11 @@ function NavBar() {
               <img src={cart} alt="carro de compra" className="logo" />
             </Button>
 
-            <Button variant="outline-0" className="ms-2 buttom-login">
+            <Button
+              variant="outline-0"
+              className="ms-2 buttom-login"
+              onClick={handleLoginOpen}
+            >
               <img src={login} alt="log in" className="logo" />
             </Button>
 
@@ -78,6 +88,9 @@ function NavBar() {
           </Container>
         </Navbar>
       ))}
+
+      {/* Login Modal Integration */}
+      <LoginModal show={showLogin} handleClose={handleLoginClose} />
     </>
   );
 }
