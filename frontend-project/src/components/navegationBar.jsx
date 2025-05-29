@@ -7,13 +7,16 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { Link } from "react-router-dom";
 import logo from "../components/img/logo.png";
 import login from "../components/img/gente-pic.png";
 import cart from "../components/img/carro-de-la-compra.png";
-import LoginModal from "./LoginModal"; 
+import LoginModal from "./LoginModal";
+import { useCart } from "../context/CartContext";
 
 function NavBar() {
   const [showLogin, setShowLogin] = useState(false);
+  const { cartItems } = useCart();
 
   const handleLoginOpen = () => setShowLogin(true);
   const handleLoginClose = () => setShowLogin(false);
@@ -23,9 +26,11 @@ function NavBar() {
       {[false].map((expand) => (
         <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
           <Container fluid>
-            <Navbar.Brand href="#">
-              <img className="logo-nav" src={logo} alt="maison pet logo" />
-            </Navbar.Brand>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <Navbar.Brand>
+                <img className="logo-nav" src={logo} alt="maison pet logo" />
+              </Navbar.Brand>
+            </Link>
 
             <Form
               className="d-flex align-items-center rounded shadow-sm bg-white px-0.5 mx-auto"
@@ -41,9 +46,11 @@ function NavBar() {
               <Button variant="dark">Buscar</Button>
             </Form>
 
-            <Button variant="outline-0" className="ms-2 buttom-shop">
-              <img src={cart} alt="carro de compra" className="logo" />
-            </Button>
+            <Link to="/order" style={{ textDecoration: "none" }}>
+              <Button variant="outline-0" className="ms-2 buttom-shop">
+                <img src={cart} alt="carro de compra" className="logo" />
+              </Button>
+            </Link>
 
             <Button
               variant="outline-0"
@@ -89,7 +96,6 @@ function NavBar() {
         </Navbar>
       ))}
 
-      {/* Login Modal Integration */}
       <LoginModal show={showLogin} handleClose={handleLoginClose} />
     </>
   );

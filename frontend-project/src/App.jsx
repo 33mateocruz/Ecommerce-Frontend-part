@@ -1,24 +1,45 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer.jsx";
 import NavBar from "./components/navegationBar.jsx";
 import ControlledCarousel from "./components/carousels.jsx";
 import CardProducts from "./components/Cards.jsx";
-import TabSearch from "./components/Tab.jsx"
+import TabSearch from "./components/Tab.jsx";
+import Order from "./components/pages/Order.jsx";
+import ProductDetail from "./components/pages/ProductDetail.jsx";
+import ShipmentTracking from "./components/pages/Shipmnet-tacking.jsx";
+import { CartProvider } from "./context/CartContext";
 
-function App() {
+const App = () => {
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <NavBar />
-      <main className="flex-grow-1">
-        <div className="container py-4"></div>
-        <ControlledCarousel />
-        <TabSearch />
-        <CardProducts />
-      </main>
-      <Footer />
-    </div>
+    <CartProvider>
+      <Router>
+        <div className="d-flex flex-column min-vh-100">
+          <NavBar />
+          <main className="flex-grow-1">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <div className="container py-4"></div>
+                    <ControlledCarousel />
+                    <TabSearch />
+                    <CardProducts />
+                  </>
+                }
+              />
+              <Route path="/order" element={<Order />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/shipment-tracking" element={<ShipmentTracking />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </CartProvider>
   );
-}
+};
 
 export default App;
