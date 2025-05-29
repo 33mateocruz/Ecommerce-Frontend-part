@@ -10,6 +10,7 @@ import ProductDetail from "./components/pages/ProductDetail.jsx";
 import ShipmentTracking from "./components/pages/Shipmnet-tacking.jsx";
 import Register from "./components/pages/Register.jsx";
 import { CartProvider } from "./context/CartContext";
+import AboutUs from "./components/pages/AboutUs";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/shipment-tracking" element={<ShipmentTracking />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/about-us" element={<AboutUs />} />
             </Routes>
           </main>
           <Footer />
