@@ -5,7 +5,6 @@ import Footer from "./components/Footer.jsx";
 import NavBar from "./components/navegationBar.jsx";
 import ControlledCarousel from "./components/carousels.jsx";
 import CardProducts from "./components/Cards.jsx";
-import TabSearch from "./components/Tab.jsx";
 import Order from "./components/pages/Order.jsx";
 import ProductDetail from "./components/pages/ProductDetail.jsx";
 import ShipmentTracking from "./components/pages/Shipmnet-tacking.jsx";
@@ -25,7 +24,6 @@ const App = () => {
                   <>
                     <div className="container py-4"></div>
                     <ControlledCarousel />
-                    <TabSearch />
                     <CardProducts />
                   </>
                 }
