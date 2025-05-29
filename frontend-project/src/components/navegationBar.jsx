@@ -12,14 +12,23 @@ import logo from "../components/img/logo.png";
 import login from "../components/img/gente-pic.png";
 import cart from "../components/img/carro-de-la-compra.png";
 import LoginModal from "./LoginModal";
+import ResetPasswordModal from "./ResetPasswordModal";
 import { useCart } from "../context/CartContext";
 
 function NavBar() {
   const [showLogin, setShowLogin] = useState(false);
+  const [showReset, setShowReset] = useState(false);
   const { cartItems } = useCart();
 
   const handleLoginOpen = () => setShowLogin(true);
   const handleLoginClose = () => setShowLogin(false);
+
+  const handleResetOpen = () => {
+    setShowLogin(false);
+    setShowReset(true);
+  };
+
+  const handleResetClose = () => setShowReset(false);
 
   return (
     <>
@@ -96,7 +105,13 @@ function NavBar() {
         </Navbar>
       ))}
 
-      <LoginModal show={showLogin} handleClose={handleLoginClose} />
+      <LoginModal
+        show={showLogin}
+        handleClose={handleLoginClose}
+        onForgotPassword={handleResetOpen}
+      />
+
+      <ResetPasswordModal show={showReset} handleClose={handleResetClose} />
     </>
   );
 }

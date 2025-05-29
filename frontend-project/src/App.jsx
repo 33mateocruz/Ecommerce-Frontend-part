@@ -8,6 +8,7 @@ import CardProducts from "./components/Cards.jsx";
 import Order from "./components/pages/Order.jsx";
 import ProductDetail from "./components/pages/ProductDetail.jsx";
 import ShipmentTracking from "./components/pages/Shipmnet-tacking.jsx";
+import Register from "./components/pages/Register.jsx";
 import { CartProvider } from "./context/CartContext";
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
               <Route path="/order" element={<Order />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/shipment-tracking" element={<ShipmentTracking />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
           </main>
           <Footer />
