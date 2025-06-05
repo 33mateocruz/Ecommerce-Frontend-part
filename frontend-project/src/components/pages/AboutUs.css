@@ -1,0 +1,13 @@
+.img-custom-size {
+  width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.aboutus-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* Opcional, para centrar verticalmente */
+}

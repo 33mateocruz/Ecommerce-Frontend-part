@@ -20,7 +20,7 @@ const Order = () => {
   return (
     <div className="store-container">
       <header className="store-header">
-        <h1>Pet Shop</h1>
+        <h1>Maison Pet</h1>
         <nav className="store-navigation">
           <ul>
             <li onClick={() => navigate("/")}>Inicio</li>
