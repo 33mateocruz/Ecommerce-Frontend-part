@@ -9,3 +9,23 @@
     border: none;
 
 }
+
+.cards-container .card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cards-container .card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cards-container .card img {
+  transition: transform 0.3s ease;
+}
+
+.cards-container .card:hover img {
+  transform: scale(1.05);
+}
