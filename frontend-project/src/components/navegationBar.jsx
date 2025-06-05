@@ -13,12 +13,10 @@ import login from "../components/img/gente-pic.png";
 import cart from "../components/img/carro-de-la-compra.png";
 import LoginModal from "./LoginModal";
 import ResetPasswordModal from "./ResetPasswordModal";
-import { useCart } from "../context/CartContext";
 
 function NavBar() {
   const [showLogin, setShowLogin] = useState(false);
   const [showReset, setShowReset] = useState(false);
-  const { cartItems } = useCart();
 
   const handleLoginOpen = () => setShowLogin(true);
   const handleLoginClose = () => setShowLogin(false);
@@ -55,7 +53,7 @@ function NavBar() {
               <Button variant="dark">Buscar</Button>
             </Form>
 
-            <Link to="/order" style={{ textDecoration: "none" }}>
+            <Link to="/carrito" style={{ textDecoration: "none" }}>
               <Button variant="outline-0" className="ms-2 buttom-shop">
                 <img src={cart} alt="carro de compra" className="logo" />
               </Button>
