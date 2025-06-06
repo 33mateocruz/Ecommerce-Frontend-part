@@ -1,86 +1,25 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
-import Comida from "./img/comida de perro.jpg";
 import "./Cards.css";
 
-const productos = [
-  {
-    id: 1,
-    nombre: "Filet Mignon Canino",
-    descripcion: "Croquetas premium con res Angus.",
-    imagen: Comida,
-  },
-  {
-    id: 2,
-    nombre: "Delicias de Pato",
-    descripcion: "Snack natural de pato.",
-    imagen: Comida,
-  },
-  {
-    id: 3,
-    nombre: "Galletas Relax",
-    descripcion: "Con lavanda y manzanilla.",
-    imagen: Comida,
-  },
-  {
-    id: 4,
-    nombre: "Menú Urbano",
-    descripcion: "Nutrición para perros de ciudad.",
-    imagen: Comida,
-  },
-  {
-    id: 5,
-    nombre: "Bocados de Cordero",
-    descripcion: "Con romero y aceite de oliva.",
-    imagen: Comida,
-  },
-  {
-    id: 6,
-    nombre: "Fórmula Vital",
-    descripcion: "Fortalece defensas y pelaje.",
-    imagen: Comida,
-  },
-  {
-    id: 7,
-    nombre: "Salmón Selecto",
-    descripcion: "Rico en Omega 3.",
-    imagen: Comida,
-  },
-  {
-    id: 8,
-    nombre: "Crocantes de Pollo",
-    descripcion: "Con vegetales frescos.",
-    imagen: Comida,
-  },
-  {
-    id: 9,
-    nombre: "Mini Bocaditos",
-    descripcion: "Ideal para razas pequeñas.",
-    imagen: Comida,
-  },
-  {
-    id: 10,
-    nombre: "Snacks Digestivos",
-    descripcion: "Con prebióticos naturales.",
-    imagen: Comida,
-  },
-  {
-    id: 11,
-    nombre: "Super Mix Gourmet",
-    descripcion: "Mezcla balanceada de sabores.",
-    imagen: Comida,
-  },
-  {
-    id: 12,
-    nombre: "Energía Natural",
-    descripcion: "Para perros activos.",
-    imagen: Comida,
-  },
-];
-
-function CardProducts() {
+function Cards() {
+  const [productos, setProductos] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/products")
+      .then((response) => {
+        console.log("Productos cargados:", response.data);
+        setProductos(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al cargar productos desde la API:", error);
+      });
+  }, []);
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
@@ -102,10 +41,19 @@ function CardProducts() {
           style={{ width: "19rem", cursor: "pointer" }}
           onClick={() => handleProductClick(producto.id)}
         >
-          <Card.Img variant="top" src={producto.imagen} />
+          <Card.Img
+            variant="top"
+            src={
+              producto.image ||
+              "https://purina.com.uy/sites/default/files/styles/webp/public/2022-09/ADULTOS%20PERROS%20MINIS%20Y%20PEQUEN%CC%83OS-dog-chow-frente.jpeg.webp?itok=UwtgKL2x"
+            }
+            alt={producto.name}
+          />
           <Card.Body>
-            <Card.Title>{producto.nombre}</Card.Title>
-            <Card.Text>{producto.descripcion}</Card.Text>
+            <Card.Title>{producto.name}</Card.Title>
+            <Card.Text>{producto.description}</Card.Text>
+            {/* Puedes agregar más info si quieres: */}
+            {/* <Card.Text>Precio: ${producto.price}</Card.Text> */}
             <Button className="buttom-cards">Ver más</Button>
           </Card.Body>
         </Card>
@@ -114,4 +62,4 @@ function CardProducts() {
   );
 }
 
-export default CardProducts;
+export default Cards;
