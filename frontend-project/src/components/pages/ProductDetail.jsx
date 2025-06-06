@@ -1,39 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./ProductDetail.css";
 
 const ProductDetail = ({ addToCart }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(1);
 
-  const product = {
-    id: parseInt(id),
-    name: "Filet Mignon Canino",
-    description:
-      "Croquetas premium con res Angus. Ideal para perros de todas las razas. Contiene proteínas de alta calidad y nutrientes esenciales para mantener a tu mascota saludable y feliz.",
-    price: 122.0,
-    image: "/img/comida de perro.jpg",
-    features: [
-      "Alta calidad en proteínas",
-      "Sin colorantes artificiales",
-      "Rico en vitaminas y minerales",
-      "Apto para todas las razas",
-    ],
-    stock: 10,
-  };
+  const [product, setProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `http://localhost:3000/products/${id}`
+        );
+        setProduct(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError("No se pudo cargar el producto.");
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
 
   const handleAddToCart = () => {
     addToCart(product, quantity);
     navigate("/carrito");
   };
 
+  if (loading) return <p>Cargando producto...</p>;
+  if (error) return <p>{error}</p>;
+  if (!product) return <p>Producto no encontrado</p>;
+
   return (
     <div className="product-detail-container">
       <div className="product-detail-content">
         <div className="product-image-section">
+          {/* Imagen fija */}
           <img
-            src={product.image}
+            src="/img/comida de perro.jpg"
             alt={product.name}
             className="product-image"
           />
@@ -48,14 +60,16 @@ const ProductDetail = ({ addToCart }) => {
             <span className="price-value">${product.price.toFixed(2)}</span>
           </div>
 
-          <div className="product-features">
-            <h3>Características:</h3>
-            <ul>
-              {product.features.map((feature, index) => (
-                <li key={index}>{feature}</li>
-              ))}
-            </ul>
-          </div>
+          {product.features && (
+            <div className="product-features">
+              <h3>Características:</h3>
+              <ul>
+                {product.features.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="product-actions">
             <div className="quantity-selector">
@@ -66,7 +80,10 @@ const ProductDetail = ({ addToCart }) => {
                 min="1"
                 max={product.stock}
                 value={quantity}
-                onChange={(e) => setQuantity(parseInt(e.target.value))}
+                onChange={(e) => {
+                  const val = parseInt(e.target.value);
+                  if (val >= 1 && val <= product.stock) setQuantity(val);
+                }}
               />
             </div>
             <button className="add-to-cart-button" onClick={handleAddToCart}>
