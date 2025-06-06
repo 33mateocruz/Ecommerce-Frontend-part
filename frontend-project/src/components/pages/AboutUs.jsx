@@ -32,7 +32,6 @@ const cards = [
 function AboutUs() {
   return (
     <div className="container my-5">
-      {/* Tarjeta principal arriba */}
       <div className="row justify-content-center mb-4">
         <div className="col-md-8">
           <div className="card mb-3">
