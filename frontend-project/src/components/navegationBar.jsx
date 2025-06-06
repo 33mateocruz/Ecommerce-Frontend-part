@@ -39,9 +39,10 @@ function NavBar() {
               </Navbar.Brand>
             </Link>
 
+            {/* Buscador visible solo en pantallas medianas o grandes */}
             <Form
-              className="d-flex align-items-center rounded shadow-sm bg-white px-0.5 mx-auto"
-              style={{ gap: "0.5rem", width: "20%" }}
+              className="d-none d-md-flex align-items-center rounded shadow-sm bg-white px-0.5 mx-auto"
+              style={{ gap: "0.5rem", maxWidth: "400px", flexGrow: 1 }}
             >
               <Form.Control
                 type="search"
@@ -80,6 +81,21 @@ function NavBar() {
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
+                {/* Buscador solo visible en pantallas chicas */}
+                <Form
+                  className="d-block d-md-none mb-3"
+                  style={{ display: "flex", gap: "0.5rem" }}
+                >
+                  <Form.Control
+                    type="search"
+                    placeholder="Buscar productos..."
+                    className="border-0"
+                    style={{ boxShadow: "none" }}
+                    aria-label="Buscar"
+                  />
+                  <Button variant="dark">Buscar</Button>
+                </Form>
+
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                   <Nav.Link href="">Home</Nav.Link>
                   <Nav.Link href="">About Us</Nav.Link>
@@ -88,7 +104,6 @@ function NavBar() {
                     title="Categories"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
-
                     <NavDropdown.Item href="#action3">Food</NavDropdown.Item>
                     <NavDropdown.Item href="#action4">Toys</NavDropdown.Item>
                     <NavDropdown.Item href="#action5">Clothes</NavDropdown.Item>
