@@ -15,7 +15,6 @@ function Cards() {
       .then((response) => {
         console.log("Productos cargados:", response.data);
 
-        // Filtrar productos únicos por nombre
         const nombresVistos = new Set();
         const productosUnicos = response.data.filter((producto) => {
           if (!nombresVistos.has(producto.name)) {
@@ -25,7 +24,6 @@ function Cards() {
           return false;
         });
 
-        // Tomar solo los primeros 3 productos únicos
         setProductos(productosUnicos.slice(0, 3));
       })
       .catch((error) => {
