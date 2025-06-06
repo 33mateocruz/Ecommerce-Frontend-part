@@ -1,46 +1,70 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Footer from "./components/Footer.jsx";
+import Footer from "./components/footer.jsx";
 import NavBar from "./components/navegationBar.jsx";
 import ControlledCarousel from "./components/carousels.jsx";
 import CardProducts from "./components/Cards.jsx";
-import Order from "./components/pages/Order.jsx";
 import ProductDetail from "./components/pages/ProductDetail.jsx";
-import ShipmentTracking from "./components/pages/Shipmnet-tacking.jsx";
 import Register from "./components/pages/Register.jsx";
-import { CartProvider } from "./context/CartContext";
 import AboutUs from "./components/pages/AboutUs";
+import Carrito from "./components/pages/Carrito.jsx";
+import Shipment from "./components/pages/Shipment.jsx";
+import React, { useState } from "react";
 
 const App = () => {
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (product, quantity) => {
+    setCart((prevCart) => {
+      const existing = prevCart.find((item) => item.id === product.id);
+      if (existing) {
+        return prevCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
+      }
+      return [...prevCart, { ...product, quantity }];
+    });
+  };
+
+  const removeFromCart = (productId) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  };
+
   return (
-    <CartProvider>
-      <Router>
-        <div className="d-flex flex-column min-vh-100">
-          <NavBar />
-          <main className="flex-grow-1">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <div className="container py-4"></div>
-                    <ControlledCarousel />
-                    <CardProducts />
-                  </>
-                }
-              />
-              <Route path="/order" element={<Order />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/shipment-tracking" element={<ShipmentTracking />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/about-us" element={<AboutUs />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
-    </CartProvider>
+    <Router>
+      <div className="d-flex flex-column min-vh-100">
+        <NavBar cart={cart} />
+        <main className="flex-grow-1">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <div className="container py-4"></div>
+                  <ControlledCarousel />
+                  <CardProducts addToCart={addToCart} />
+                </>
+              }
+            />
+            <Route
+              path="/product/:id"
+              element={<ProductDetail addToCart={addToCart} />}
+            />
+            <Route path="/register" element={<Register />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route
+              path="/carrito"
+              element={<Carrito cart={cart} removeFromCart={removeFromCart} />}
+            />
+            <Route path="/shipment" element={<Shipment />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 };
 

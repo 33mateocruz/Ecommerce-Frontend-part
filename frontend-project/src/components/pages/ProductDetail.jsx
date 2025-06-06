@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useCart } from "../../context/CartContext";
 import "./ProductDetail.css";
 
-const ProductDetail = () => {
+const ProductDetail = ({ addToCart }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCart();
 
   const product = {
     id: parseInt(id),
@@ -15,7 +13,7 @@ const ProductDetail = () => {
     description:
       "Croquetas premium con res Angus. Ideal para perros de todas las razas. Contiene proteínas de alta calidad y nutrientes esenciales para mantener a tu mascota saludable y feliz.",
     price: 122.0,
-    image: "/path/to/image.jpg",
+    image: "/img/comida de perro.jpg",
     features: [
       "Alta calidad en proteínas",
       "Sin colorantes artificiales",
@@ -27,10 +25,7 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     addToCart(product, quantity);
-    alert(
-      `Producto agregado al carrito: ${quantity} unidad(es) de ${product.name}`
-    );
-    navigate("/order");
+    navigate("/carrito");
   };
 
   return (
