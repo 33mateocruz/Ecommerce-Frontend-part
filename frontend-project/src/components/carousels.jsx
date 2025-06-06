@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
-import "./Carousel.css"
-import pataFina from "./img/pata fina.png"
-import dogoAndCo from "./img/dogo and co.png"
-import pelajeUrbano from "./img/pelaje urbanoo.png"
+import "./Carousel.css";
+import pataFina from "./img/Pata fina.png";
+import dogoAndCo from "./img/Maison pet banner.png";
+import pelajeUrbano from "./img/pelaje urbano.png";
 
 function ControlledCarousel() {
   const [index, setIndex] = useState(0);
@@ -16,25 +16,23 @@ function ControlledCarousel() {
     <Carousel activeIndex={index} onSelect={handleSelect} className='container carousel'>
       <Carousel.Item>
         <img
-          className="img-1"
           src={pataFina}
           alt="Primera imagen"
+          className="img-1"
         />
       </Carousel.Item>
-
       <Carousel.Item>
         <img
-          className="img-2"
           src={pelajeUrbano}
           alt="Segunda imagen"
+          className="img-2"
         />
       </Carousel.Item>
-
       <Carousel.Item>
         <img
-          className="img-3"
           src={dogoAndCo}
           alt="Tercera imagen"
+          className="img-3"
         />
       </Carousel.Item>
     </Carousel>

@@ -1,19 +1,18 @@
-.img-1 {
-  border-radius: 1rem;
-  width: 80rem;
-}
-.img-2 {
-  border-radius: 1rem;
-  width: 80rem;
-}
+.img-1,
+.img-2,
 .img-3 {
   border-radius: 1rem;
-  width: 80rem;
+  width: 100%;
+  max-width: 80rem;
+  height: auto;
+  object-fit: cover;
 }
+
 .carousel {
   display: flex;
   justify-content: center;
 }
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   background-image: none;
@@ -25,10 +24,13 @@
 .carousel-control-prev::after,
 .carousel-control-next::after {
   margin-left: -4rem;
-  content: "⦑";
   color: black;
   font-size: 2rem;
   font-weight: bold;
+}
+
+.carousel-control-prev::after {
+  content: "⦑";
 }
 
 .carousel-control-next::after {
