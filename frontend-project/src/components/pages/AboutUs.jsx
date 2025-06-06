@@ -69,7 +69,7 @@ function AboutUs() {
     <div className="container my-5">
       <div className="row justify-content-center mb-4">
         <div className="col-md-8">
-          <div className="card mb-3">
+          <div className="card mb-3 logo-about-us">
             <img
               src={mainBanner}
               className="card-img-top"
