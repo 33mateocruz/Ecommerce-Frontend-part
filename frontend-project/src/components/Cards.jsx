@@ -14,7 +14,19 @@ function Cards() {
       .get("http://localhost:3000/products")
       .then((response) => {
         console.log("Productos cargados:", response.data);
-        setProductos(response.data);
+
+        // Filtrar productos únicos por nombre
+        const nombresVistos = new Set();
+        const productosUnicos = response.data.filter((producto) => {
+          if (!nombresVistos.has(producto.name)) {
+            nombresVistos.add(producto.name);
+            return true;
+          }
+          return false;
+        });
+
+        // Tomar solo los primeros 3 productos únicos
+        setProductos(productosUnicos.slice(0, 3));
       })
       .catch((error) => {
         console.error("Error al cargar productos desde la API:", error);
@@ -52,8 +64,6 @@ function Cards() {
           <Card.Body>
             <Card.Title>{producto.name}</Card.Title>
             <Card.Text>{producto.description}</Card.Text>
-            {/* Puedes agregar más info si quieres: */}
-            {/* <Card.Text>Precio: ${producto.price}</Card.Text> */}
             <Button className="buttom-cards">Ver más</Button>
           </Card.Body>
         </Card>
