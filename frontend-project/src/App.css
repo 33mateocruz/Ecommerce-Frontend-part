@@ -1,0 +1,18 @@
+.scrollable {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d0d0d0 #ffffff;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: #d0d0d0;
+  border-radius: 10px;
+}
