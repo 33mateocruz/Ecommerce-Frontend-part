@@ -76,25 +76,24 @@ function NavBar() {
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  Menú
+                  Menú 🐱
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="#home">Home</Nav.Link>
-                  <Nav.Link href="#link">Link</Nav.Link>
+                  <Nav.Link href="">Home</Nav.Link>
+                  <Nav.Link href="">About Us</Nav.Link>
+                  <Nav.Link href="">My profile</Nav.Link>
                   <NavDropdown
-                    title="Dropdown"
+                    title="Categories"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
+
+                    <NavDropdown.Item href="#action3">Food</NavDropdown.Item>
+                    <NavDropdown.Item href="#action4">Toys</NavDropdown.Item>
+                    <NavDropdown.Item href="#action5">Clothes</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else
-                    </NavDropdown.Item>
+                    <NavDropdown.Item href="#action5">Services</NavDropdown.Item>
                   </NavDropdown>
                 </Nav>
               </Offcanvas.Body>
