@@ -24,7 +24,7 @@ function Cards() {
           return false;
         });
 
-        setProductos(productosUnicos.slice(0, 3));
+        setProductos(productosUnicos); // ✅ Se muestran todos los productos únicos
       })
       .catch((error) => {
         console.error("Error al cargar productos desde la API:", error);
