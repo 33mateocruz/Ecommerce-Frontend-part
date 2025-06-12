@@ -43,9 +43,8 @@ const ProductDetail = ({ addToCart }) => {
     <div className="product-detail-container">
       <div className="product-detail-content">
         <div className="product-image-section">
-          {/* Imagen fija */}
           <img
-            src="/img/comida de perro.jpg"
+            src={product.image}
             alt={product.name}
             className="product-image"
           />

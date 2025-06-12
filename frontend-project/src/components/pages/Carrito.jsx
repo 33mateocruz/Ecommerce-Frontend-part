@@ -46,11 +46,11 @@ function Carrito({ cart, removeFromCart }) {
                   <td>{item.quantity || 1}</td>
                   <td>
                     <Button
-                      variant="danger"
+                      variant="btn btn-outline-light"
                       size="sm"
                       onClick={() => removeFromCart(item.id)}
                     >
-                      Eliminar
+                      🗑
                     </Button>
                   </td>
                 </tr>
