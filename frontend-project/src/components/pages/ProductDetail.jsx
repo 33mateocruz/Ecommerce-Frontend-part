@@ -1,38 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/cartSlice";
 import axios from "axios";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import "./ProductDetail.css";
 
-const ProductDetail = ({ addToCart }) => {
+const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `http://localhost:3000/products/${id}`
-        );
+    axios
+      .get(`http://localhost:3000/products/${id}`)
+      .then((response) => {
         setProduct(response.data);
         setLoading(false);
-      } catch (err) {
-        setError("No se pudo cargar el producto.");
+      })
+      .catch((err) => {
+        setError("Error al cargar el producto");
         setLoading(false);
-      }
-    };
-
-    fetchProduct();
+      });
   }, [id]);
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
-    navigate("/carrito");
+    dispatch(addToCart({ ...product, quantity }));
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedProduct(null);
   };
 
   if (loading) return <p>Cargando producto...</p>;
@@ -40,58 +48,53 @@ const ProductDetail = ({ addToCart }) => {
   if (!product) return <p>Producto no encontrado</p>;
 
   return (
-    <div className="product-detail-container">
-      <div className="product-detail-content">
-        <div className="product-image-section">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="product-image"
-          />
+    <>
+      <div className="product-detail-container">
+        <div className="product-image">
+          <img src={product.image} alt={product.name} />
         </div>
-
-        <div className="product-info-section">
-          <h1 className="product-title">{product.name}</h1>
-          <p className="product-description">{product.description}</p>
-
-          <div className="product-price">
-            <span className="price-label">Precio:</span>
-            <span className="price-value">${product.price.toFixed(2)}</span>
+        <div className="product-info">
+          <h2>{product.name}</h2>
+          <p className="description">{product.description}</p>
+          <p className="price">
+            <strong>Precio:</strong> ${product.price}
+          </p>
+          <div className="quantity-selector">
+            <label>Cantidad:</label>
+            <input
+              type="number"
+              min="1"
+              value={quantity}
+              onChange={(e) => setQuantity(parseInt(e.target.value))}
+            />
           </div>
-
-          {product.features && (
-            <div className="product-features">
-              <h3>Características:</h3>
-              <ul>
-                {product.features.map((feature, index) => (
-                  <li key={index}>{feature}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          <div className="product-actions">
-            <div className="quantity-selector">
-              <label htmlFor="quantity">Cantidad:</label>
-              <input
-                type="number"
-                id="quantity"
-                min="1"
-                max={product.stock}
-                value={quantity}
-                onChange={(e) => {
-                  const val = parseInt(e.target.value);
-                  if (val >= 1 && val <= product.stock) setQuantity(val);
-                }}
-              />
-            </div>
-            <button className="add-to-cart-button" onClick={handleAddToCart}>
-              Agregar al Carrito
-            </button>
-          </div>
+          <Button variant="primary" onClick={handleAddToCart}>
+            Añadir al carrito
+          </Button>
         </div>
       </div>
-    </div>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Producto agregado al carrito</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedProduct && (
+            <p>
+              Has agregado "{selectedProduct.name}" al carrito exitosamente.
+            </p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Seguir comprando
+          </Button>
+          <Button variant="primary" onClick={() => navigate("/carrito")}>
+            Ir al carrito
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 

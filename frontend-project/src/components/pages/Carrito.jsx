@@ -1,8 +1,12 @@
 import React from "react";
 import { Container, Table, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart } from "../../store/cartSlice";
 
-function Carrito({ cart, removeFromCart }) {
+function Carrito() {
+  const cart = useSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
@@ -36,9 +40,11 @@ function Carrito({ cart, removeFromCart }) {
                       src={item.image}
                       alt={item.name}
                       style={{
-                        width: "60px",
-                        height: "60px",
-                        objectFit: "cover",
+                        width: "120px",
+                        height: "120px",
+                        objectFit: "contain",
+                        borderRadius: "8px",
+                        boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
                       }}
                     />
                   </td>
@@ -46,9 +52,9 @@ function Carrito({ cart, removeFromCart }) {
                   <td>{item.quantity || 1}</td>
                   <td>
                     <Button
-                      variant="btn btn-outline-light"
+                      variant="btn btn-outline-info"
                       size="sm"
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => dispatch(removeFromCart(item.id))}
                     >
                       🗑
                     </Button>
@@ -58,7 +64,7 @@ function Carrito({ cart, removeFromCart }) {
             </tbody>
           </Table>
           <div className="d-flex justify-content-end">
-            <Button variant="success" onClick={handleCheckout}>
+            <Button variant="primary" onClick={handleCheckout}>
               Finalizar compra
             </Button>
           </div>
