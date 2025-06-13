@@ -16,7 +16,7 @@ function NavBar() {
   return (
     <>
       {[false].map((expand) => (
-        <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
+        <Navbar key={expand} expand={expand} className="bg-body-tertiary">
           <Container fluid>
             <Link to="/" style={{ textDecoration: "none" }}>
               <Navbar.Brand>
@@ -77,11 +77,12 @@ function NavBar() {
                   />
                   <Button variant="dark">Buscar</Button>
                 </Form>
-
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="">Home</Nav.Link>
-                  <Nav.Link href="">About Us</Nav.Link>
-                  <Nav.Link href="">My profile</Nav.Link>
+                  <Link to="/" className="nav-link">
+                    Home
+                  </Link>
+                  <Link to="/about-us" className="nav-link">About Us</Link>
+                   <Link to="/about-us" className="nav-link">My profile</Link>
                   <NavDropdown
                     title="Categories"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}

@@ -9,9 +9,17 @@
 }
 
 .carousel {
+  margin-top: 3rem;
+  padding: 0.3rem;
   display: flex;
   justify-content: center;
+  border-radius: 1rem;
+  border: 2px solid #005bbb;
+ box-shadow: blue 0px 0px 0px 2px inset, rgb(255, 255, 255) 10px -10px 0px -3px, rgb(27, 85, 193) 10px -10px, rgb(255, 255, 255) 20px -20px 0px -3px, rgb(19, 55, 255) 20px -20px, rgb(255, 255, 255) 30px -30px 0px -3px, rgb(85, 125, 255) 30px -30px
 }
+
+
+
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {

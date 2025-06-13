@@ -1,67 +1,116 @@
-import React from "react";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import "./Register.css";
 
-const Register = () => {
-  const navigate = useNavigate();
+const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
+
+  useEffect(() => {
+    const setVH = () => {
+      document.documentElement.style.setProperty(
+        "--vh",
+        `${window.innerHeight * 0.01}px`
+      );
+    };
+    setVH();
+    window.addEventListener("resize", setVH);
+    return () => window.removeEventListener("resize", setVH);
+  }, []);
+
+  const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: Integrate registration logic (API call)
-    alert("Registro enviado (lógica aún no implementada)");
-    navigate("/"); // redirect to homepage or login after registration
+    alert(isRegistering ? "Registro enviado" : "Login enviado");
   };
 
   return (
-    <Container className="py-5">
-      <Row className="justify-content-center">
-        <Col xs={12} md={6}>
-          <h2 className="mb-4 text-center">Crear cuenta</h2>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formName" className="mb-3">
-              <Form.Label>Nombre completo</Form.Label>
-              <Form.Control
+    <div className={`login-wrapper ${isRegistering ? "register-mode" : ""}`}>
+      <div className="left-panel">
+        <h1 className="welcome-title">
+          {isRegistering ? "Create Account" : "Welcome"}
+        </h1>
+        <form onSubmit={handleSubmit} className="login-form">
+          {isRegistering && (
+            <>
+              <label htmlFor="username">Username</label>
+              <input
+                id="username"
                 type="text"
-                placeholder="Ingresa tu nombre"
+                placeholder="username"
                 required
               />
-            </Form.Group>
+            </>
+          )}
+          <label htmlFor="email">E-mail</label>
+          <input id="email" type="email" placeholder="e-mail" required />
+          <label htmlFor="password">Password</label>
+          <div className="password-wrapper">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="password"
+              required
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={toggleShowPassword}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </button>
+          </div>
+          {!isRegistering && (
+            <a href="#" className="forgot-password">
+              ¿Olvidaste tu contraseña?
+            </a>
+          )}
+          <button type="submit" className="btn-login">
+            {isRegistering ? "Register" : "Log In"}
+          </button>
 
-            <Form.Group controlId="formEmail" className="mb-3">
-              <Form.Label>Correo electrónico</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Ingresa tu correo"
-                required
-              />
-            </Form.Group>
+          <div className="bottom-option">
+            {isRegistering ? (
+              <p>
+                ¿Ya tenés cuenta?{" "}
+                <span
+                  className="form-switch"
+                  onClick={() => setIsRegistering(false)}
+                >
+                  Iniciar sesión
+                </span>
+              </p>
+            ) : (
+              <p>
+                ¿No tenés cuenta?{" "}
+                <span
+                  className="form-switch"
+                  onClick={() => setIsRegistering(true)}
+                >
+                  Registrate
+                </span>
+              </p>
+            )}
+          </div>
 
-            <Form.Group controlId="formPassword" className="mb-3">
-              <Form.Label>Contraseña</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Crea una contraseña"
-                required
-              />
-            </Form.Group>
+          <hr />
+        </form>
+      </div>
 
-            <Form.Group controlId="formConfirmPassword" className="mb-4">
-              <Form.Label>Confirmar contraseña</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Repite la contraseña"
-                required
-              />
-            </Form.Group>
-
-            <Button type="submit" variant="primary" className="w-100">
-              Registrarse
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
+      <div className="right-panel">
+        <img
+          src={
+            isRegistering
+              ? "https://img.freepik.com/fotos-premium/lindo-cachorro-beagle-sonriendo-sobre-fondo-azul-solido_280590-43.jpg?semt=ais_hybrid&w=740"
+              : "https://thumbs.dreamstime.com/b/gato-azul-brit%C3%A1nico-de-fondo-retrato-en-estudio-fotos-264532619.jpg"
+          }
+          alt="Imagen"
+          className="dog-image"
+        />
+      </div>
+    </div>
   );
 };
 
-export default Register;
+export default Login;
