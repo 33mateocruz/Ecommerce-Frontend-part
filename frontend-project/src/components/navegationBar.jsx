@@ -7,27 +7,12 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { Link } from "react-router-dom";
+import { href, Link } from "react-router-dom";
 import logo from "../components/img/logo.png";
 import login from "../components/img/gente-pic.png";
 import cart from "../components/img/carro-de-la-compra.png";
-import LoginModal from "./LoginModal";
-import ResetPasswordModal from "./ResetPasswordModal";
 
 function NavBar() {
-  const [showLogin, setShowLogin] = useState(false);
-  const [showReset, setShowReset] = useState(false);
-
-  const handleLoginOpen = () => setShowLogin(true);
-  const handleLoginClose = () => setShowLogin(false);
-
-  const handleResetOpen = () => {
-    setShowLogin(false);
-    setShowReset(true);
-  };
-
-  const handleResetClose = () => setShowReset(false);
-
   return (
     <>
       {[false].map((expand) => (
@@ -59,14 +44,11 @@ function NavBar() {
                 <img src={cart} alt="carro de compra" className="logo" />
               </Button>
             </Link>
-
-            <Button
-              variant="outline-0"
-              className="ms-2 buttom-login"
-              onClick={handleLoginOpen}
-            >
-              <img src={login} alt="log in" className="logo" />
-            </Button>
+            <Link to="/register" style={{ textDecoration: "none" }}>
+              <Button variant="outline-0" className="ms-2 buttom-login">
+                <img src={login} alt="log in" className="logo" />
+              </Button>
+            </Link>
 
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
 
@@ -108,7 +90,9 @@ function NavBar() {
                     <NavDropdown.Item href="#action4">Toys</NavDropdown.Item>
                     <NavDropdown.Item href="#action5">Clothes</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">Services</NavDropdown.Item>
+                    <NavDropdown.Item href="#action5">
+                      Services
+                    </NavDropdown.Item>
                   </NavDropdown>
                 </Nav>
               </Offcanvas.Body>
@@ -116,14 +100,6 @@ function NavBar() {
           </Container>
         </Navbar>
       ))}
-
-      <LoginModal
-        show={showLogin}
-        handleClose={handleLoginClose}
-        onForgotPassword={handleResetOpen}
-      />
-
-      <ResetPasswordModal show={showReset} handleClose={handleResetClose} />
     </>
   );
 }
