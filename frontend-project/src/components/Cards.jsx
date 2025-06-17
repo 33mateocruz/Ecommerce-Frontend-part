@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../store/cartSlice";
+import { agregarAlCarro } from "../store/cartSlice";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Modal from "react-bootstrap/Modal";
@@ -41,7 +41,7 @@ function Cards() {
   };
 
   const handleAddToCart = (producto) => {
-    dispatch(addToCart({ ...producto, quantity: 1 }));
+    dispatch(agregarAlCarro({ ...producto, cantidad: 1 }));
     setSelectedProduct(producto);
     setShowModal(true);
   };

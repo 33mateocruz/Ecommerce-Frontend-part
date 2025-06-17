@@ -63,3 +63,10 @@
   margin-top: 1rem;
   padding: 0.75rem 2rem;
 }
+
+/*eso elimina las flechas de incremento y disminucion */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

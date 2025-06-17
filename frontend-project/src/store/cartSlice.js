@@ -1,30 +1,47 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  items: [],
-};
-
-const cartSlice = createSlice({
-  name: "cart",
-  initialState,
+const carroSlice = createSlice({
+  name: "carro",
+  initialState: {
+    articulos: [],
+    comprasDeArticulos: [],
+  },
   reducers: {
-    addToCart: (state, action) => {
-      const product = action.payload;
-      const existingProduct = state.items.find(
-        (item) => item.id === product.id
+    agregarAlCarro: (state, action) => {
+      const producto = action.payload;
+      const productoExistente = state.articulos.find(
+        (item) => item.id === producto.id
       );
-
-      if (existingProduct) {
-        existingProduct.quantity += 1;
+      if (productoExistente) {
+        productoExistente.cantidad += producto.cantidad;
       } else {
-        state.items.push(product);
+        state.articulos.push(producto);
       }
     },
-    removeFromCart: (state, action) => {
-      state.items = state.items.filter((item) => item.id !== action.payload);
+    eliminarDelCarro: (state, action) => {
+      state.articulos = state.articulos.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+    finalizarCompra: (state, action) => {
+      state.comprasDeArticulos = action.payload;
+      state.articulos = [];
+    },
+    actualizarCantidad: (state, action) => {
+      const { id, cantidad } = action.payload;
+      const producto = state.articulos.find((item) => item.id === id);
+      if (producto) {
+        producto.cantidad = cantidad;
+      }
     },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
-export default cartSlice.reducer;
+export const {
+  agregarAlCarro,
+  eliminarDelCarro,
+  finalizarCompra,
+  actualizarCantidad,
+} = carroSlice.actions;
+
+export default carroSlice.reducer;

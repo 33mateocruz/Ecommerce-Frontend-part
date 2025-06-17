@@ -2,22 +2,51 @@ import React from "react";
 import { Container, Table, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from "../../store/cartSlice";
+import {
+  eliminarDelCarro,
+  finalizarCompra,
+  actualizarCantidad,
+} from "../../store/cartSlice";
+import arrowIcon from "../../components/img/arrow-return-left.svg";
 
 function Carrito() {
-  const cart = useSelector((state) => state.cart.items);
+  const articulos = useSelector((state) => state.carro.articulos || []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
+    if (articulos.length === 0) {
+      alert(
+        "El carrito está vacío. Agrega productos antes de finalizar la compra."
+      );
+      return;
+    }
+
+    dispatch(finalizarCompra(articulos));
+
     alert("¡Gracias por tu compra!");
     navigate("/shipment");
   };
 
   return (
     <Container className="my-5">
-      <h1 className="mb-4">Carrito de Compras</h1>
-      {cart.length === 0 ? (
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <Button
+          variant="outline-primary"
+          onClick={() => navigate(-1)}
+          className="d-flex align-items-center"
+        >
+          <img
+            src={arrowIcon}
+            alt="Volver"
+            style={{ width: "20px", height: "20px", marginRight: "8px" }}
+          />
+          Volver
+        </Button>
+        <h1 className="mb-0">Carrito de Compras</h1>
+        <div style={{ width: "100px" }}></div> {}
+      </div>
+      {articulos.length === 0 ? (
         <Alert variant="info">El carrito está vacío.</Alert>
       ) : (
         <>
@@ -32,7 +61,7 @@ function Carrito() {
               </tr>
             </thead>
             <tbody>
-              {cart.map((item, index) => (
+              {articulos.map((item, index) => (
                 <tr key={item.id || index}>
                   <td>{index + 1}</td>
                   <td>
@@ -49,12 +78,50 @@ function Carrito() {
                     />
                   </td>
                   <td>{item.name || "Producto"}</td>
-                  <td>{item.quantity || 1}</td>
                   <td>
+                    <div className="d-flex align-items-center justify-content-center">
+                      <Button
+                        variant="outline-secondary"
+                        size="sm"
+                        onClick={() => {
+                          if ((item.cantidad || 1) > 1) {
+                            dispatch(
+                              actualizarCantidad({
+                                id: item.id,
+                                cantidad: (item.cantidad || 1) - 1,
+                              })
+                            );
+                          }
+                        }}
+                        style={{ marginRight: "5px" }}
+                      >
+                        -
+                      </Button>
+                      <span style={{ minWidth: "30px", textAlign: "center" }}>
+                        {item.cantidad || 1}
+                      </span>
+                      <Button
+                        variant="outline-secondary"
+                        size="sm"
+                        onClick={() =>
+                          dispatch(
+                            actualizarCantidad({
+                              id: item.id,
+                              cantidad: (item.cantidad || 1) + 1,
+                            })
+                          )
+                        }
+                        style={{ marginLeft: "5px" }}
+                      >
+                        +
+                      </Button>
+                    </div>
+                  </td>
+                  <td className="text-center">
                     <Button
                       variant="btn btn-outline-info"
                       size="sm"
-                      onClick={() => dispatch(removeFromCart(item.id))}
+                      onClick={() => dispatch(eliminarDelCarro(item.id))}
                     >
                       🗑
                     </Button>
