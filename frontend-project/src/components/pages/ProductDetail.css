@@ -70,3 +70,9 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* esto es para que no aparezca en firefox aaaaaaaaaaaa */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
