@@ -50,7 +50,7 @@ function Carrito() {
         <Alert variant="info">El carrito está vacío.</Alert>
       ) : (
         <>
-          <Table striped bordered hover responsive>
+          <Table striped bordered hover responsive className="text-center">
             <thead>
               <tr>
                 <th>#</th>
