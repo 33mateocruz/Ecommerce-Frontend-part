@@ -11,6 +11,7 @@ import AboutUs from "./components/pages/AboutUs";
 import Carrito from "./components/pages/Carrito.jsx";
 import Shipment from "./components/pages/Shipment.jsx";
 import React, { useState } from "react";
+import Hero from "./components/Hero.jsx";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -43,6 +44,7 @@ const App = () => {
               path="/"
               element={
                 <>
+                  <Hero />
                   <div className="container py-4"></div>
                   <ControlledCarousel />
                   <CardProducts addToCart={addToCart} />
