@@ -19,17 +19,28 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 200vh;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  box-sizing: border-box;
+}
+
 .hero-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
+  padding: 2rem 13rem;
   position: relative;
   overflow: hidden;
   box-shadow: 0 2px 8px -2px rgba(46, 68, 102, 0.7);
-  min-height: 60vh;
-  gap: 2rem;
+  min-height: 70vh;
+  gap: 4rem;
 }
 
 .hero-container::before {
@@ -40,39 +51,69 @@
   right: 0;
   bottom: 0;
   z-index: -1;
-  background: linear-gradient(
-    270deg,
-    #1e3c72,
-    #2a5298,
-    #ffffff,
-    #87ceeb,
-    #1e3c72
-  );
   background-size: 1000% 1000%;
-  animation: wave 15s ease infinite;
-  opacity: 0.5;
 }
 
-.logo-hero {
-  background-color: white;
-  width: 28rem;
-  height: 6rem;
-  border-radius: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
+.hero-content {
+  flex: 1;
+  max-width: 28rem;
+  text-align: left;
+}
+
+.welcome-text {
+  color: hsl(var(--muted-foreground, 210, 15%, 65%));
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.main-title {
+  font-family: "Poppins", sans-serif;
   font-size: 3.5rem;
-  color: #1e39a7;
-  padding: 0 1rem;
+  font-weight: bold;
+  color: hsl(var(--foreground, 210, 10%, 20%));
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.description {
+  color: #333;
+  font-size: 1.125rem;
+  line-height: 1.9;
+  margin: 0 auto 2rem;
+  max-width: 50rem;
+  width: 100%;
   box-sizing: border-box;
-  box-shadow: rgb(111, 172, 226) 3px 3px 6px 0px inset,
-    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+
+.button-banner {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  border: none;
+  border-radius: 2rem;
+  color: #ffffff;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button-banner:hover {
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
+  transform: translateY(-2px);
+}
+
+.button-banner:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(30, 60, 114, 0.4);
 }
 
 .circle-image {
-  width: 20rem;
-  height: 20rem;
+  width: 29rem;
+  height: 29rem;
   border-radius: 50%;
   background-color: #1e39a7;
   display: flex;
@@ -81,11 +122,97 @@
   overflow: hidden;
   animation: spin 20s linear infinite;
   flex-shrink: 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.circle-image img {
-  width: 40rem;
+.circle-image:hover {
+  transform: scale(1.15) translateY(-6px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.hero-image {
   object-fit: cover;
   border-radius: 50%;
   pointer-events: none;
+  display: block;
+  position: relative;
+}
+
+/* Tablet & small laptops */
+@media (max-width: 796px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1rem;
+    gap: 3rem;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .circle-image {
+    width: 20rem;
+    height: 20rem;
+    position: relative;
+  }
+
+  .hero-image {
+    width: 110%;
+    height: 110%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    top: -5%;
+    left: -5%;
+  }
+}
+
+/* Celulares pequeños */
+@media (max-width: 480px) {
+  .hero-container {
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+    gap: 2rem;
+  }
+
+  .main-title {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 auto 1.5rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .button-banner {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+
+  .circle-image {
+    width: 16rem;
+    height: 16rem;
+  }
+
+  .hero-image {
+    width: 120%;
+    height: 120%;
+    top: -10%;
+    left: -10%;
+  }
+
+  .welcome-text {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+  }
 }
