@@ -10,6 +10,7 @@ import Register from "./components/pages/Register.jsx";
 import AboutUs from "./components/pages/AboutUs";
 import Carrito from "./components/pages/Carrito.jsx";
 import Shipment from "./components/pages/Shipment.jsx";
+import MyProfile from "./components/pages/MyProfile.jsx";
 import React, { useState } from "react";
 import Hero from "./components/Hero.jsx";
 
@@ -62,6 +63,7 @@ const App = () => {
               element={<Carrito cart={cart} removeFromCart={removeFromCart} />}
             />
             <Route path="/shipment" element={<Shipment />} />
+            <Route path="/myprofile" element={<MyProfile />} />
           </Routes>
         </main>
         <Footer />

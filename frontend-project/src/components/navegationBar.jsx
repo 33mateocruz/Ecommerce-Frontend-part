@@ -82,7 +82,7 @@ function NavBar() {
                     Home
                   </Link>
                   <Link to="/about-us" className="nav-link">About Us</Link>
-                   <Link to="/about-us" className="nav-link">My profile</Link>
+                   <Link to="/myprofile" className="nav-link">My profile</Link>
                   <NavDropdown
                     title="Categories"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}

@@ -176,3 +176,46 @@ nav {
   background: rgba(82, 121, 255, 0.4);
   border-radius: 4px;
 }
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-panel, .right-panel {
+    flex: 1 1 100%;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    padding: 2rem 1.5rem;
+    transition: none;
+  }
+
+  .right-panel {
+    display: none; /* Ocultamos la parte visual */
+  }
+
+  .dog-image {
+    display: none; /* Ocultamos la imagen de fondo */
+  }
+
+  .welcome-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .btn-login {
+    font-size: 1rem;
+    padding: 0.8rem 0;
+  }
+
+  .login-wrapper.register-mode .left-panel {
+    transform: none;
+  }
+
+  .login-wrapper.register-mode .right-panel {
+    transform: none;
+  }
+}

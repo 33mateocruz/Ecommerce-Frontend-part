@@ -16,14 +16,11 @@ function Carrito() {
 
   const handleCheckout = () => {
     if (articulos.length === 0) {
-      alert(
-        "El carrito está vacío. Agrega productos antes de finalizar la compra."
-      );
+      alert("El carrito está vacío. Agrega productos antes de finalizar la compra.");
       return;
     }
 
     dispatch(finalizarCompra(articulos));
-
     alert("¡Gracias por tu compra!");
     navigate("/shipment");
   };
@@ -34,7 +31,7 @@ function Carrito() {
         <Button
           variant="outline-primary"
           onClick={() => navigate(-1)}
-          className="d-flex align-items-center"
+          className="d-flex align-items-center rounded-pill shadow-sm"
         >
           <img
             src={arrowIcon}
@@ -43,95 +40,113 @@ function Carrito() {
           />
           Volver
         </Button>
-        <h1 className="mb-0">Carrito de Compras</h1>
-        <div style={{ width: "100px" }}></div> {}
+        <h1 className="mb-0 text-primary fw-bold">Carrito de Compras</h1>
+        <div style={{ width: "100px" }}></div>
       </div>
+
       {articulos.length === 0 ? (
-        <Alert variant="info">El carrito está vacío.</Alert>
+        <Alert variant="info" className="text-center shadow-sm">
+          El carrito está vacío.
+        </Alert>
       ) : (
         <>
-          <Table striped bordered hover responsive className="text-center">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Imagen</th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {articulos.map((item, index) => (
-                <tr key={item.id || index}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      style={{
-                        width: "120px",
-                        height: "120px",
-                        objectFit: "contain",
-                        borderRadius: "8px",
-                        boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                      }}
-                    />
-                  </td>
-                  <td>{item.name || "Producto"}</td>
-                  <td>
-                    <div className="d-flex align-items-center justify-content-center">
-                      <Button
-                        variant="outline-secondary"
-                        size="sm"
-                        onClick={() => {
-                          if ((item.cantidad || 1) > 1) {
+          <div className="table-responsive shadow-sm rounded-3">
+            <Table striped bordered hover className="text-center align-middle mb-0">
+              <thead className="table-light">
+                <tr>
+                  <th>#</th>
+                  <th>Imagen</th>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {articulos.map((item, index) => (
+                  <tr key={item.id || index}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          objectFit: "contain",
+                          borderRadius: "8px",
+                          boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                        }}
+                      />
+                    </td>
+                    <td className="fw-semibold">{item.name || "Producto"}</td>
+                    <td>
+                      <div className="d-flex align-items-center justify-content-center">
+                        <Button
+                          variant="outline-secondary"
+                          size="sm"
+                          onClick={() => {
+                            if ((item.cantidad || 1) > 1) {
+                              dispatch(
+                                actualizarCantidad({
+                                  id: item.id,
+                                  cantidad: (item.cantidad || 1) - 1,
+                                })
+                              );
+                            }
+                          }}
+                          className="rounded-circle px-2"
+                        >
+                          −
+                        </Button>
+                        <span
+                          style={{
+                            minWidth: "30px",
+                            textAlign: "center",
+                            fontWeight: "500",
+                            margin: "0 10px",
+                          }}
+                        >
+                          {item.cantidad || 1}
+                        </span>
+                        <Button
+                          variant="outline-secondary"
+                          size="sm"
+                          onClick={() =>
                             dispatch(
                               actualizarCantidad({
                                 id: item.id,
-                                cantidad: (item.cantidad || 1) - 1,
+                                cantidad: (item.cantidad || 1) + 1,
                               })
-                            );
+                            )
                           }
-                        }}
-                        style={{ marginRight: "5px" }}
-                      >
-                        -
-                      </Button>
-                      <span style={{ minWidth: "30px", textAlign: "center" }}>
-                        {item.cantidad || 1}
-                      </span>
+                          className="rounded-circle px-2"
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </td>
+                    <td>
                       <Button
-                        variant="outline-secondary"
+                        variant="outline-danger"
                         size="sm"
-                        onClick={() =>
-                          dispatch(
-                            actualizarCantidad({
-                              id: item.id,
-                              cantidad: (item.cantidad || 1) + 1,
-                            })
-                          )
-                        }
-                        style={{ marginLeft: "5px" }}
+                        onClick={() => dispatch(eliminarDelCarro(item.id))}
+                        className="rounded-circle"
+                        title="Eliminar"
                       >
-                        +
+                        🗑
                       </Button>
-                    </div>
-                  </td>
-                  <td className="text-center">
-                    <Button
-                      variant="btn btn-outline-info"
-                      size="sm"
-                      onClick={() => dispatch(eliminarDelCarro(item.id))}
-                    >
-                      🗑
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          <div className="d-flex justify-content-end">
-            <Button variant="primary" onClick={handleCheckout}>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+          <div className="d-flex justify-content-end mt-4">
+            <Button
+              variant="primary"
+              className="rounded-pill px-4 py-2 fw-bold shadow"
+              onClick={handleCheckout}
+            >
               Finalizar compra
             </Button>
           </div>
