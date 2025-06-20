@@ -18,7 +18,8 @@ const Hero = () => {
         <p className="welcome-text">BIENVENIDO A</p>
         <h1 className="main-title">MAISON PET</h1>
         <p className="description">
-          En Maison Pet, creemos que todos los animales merecen amor, cuidado y un hogar donde se sientan seguros.
+          En Maison Pet, creemos que todos los animales merecen amor, cuidado y
+          un hogar donde se sientan seguros.
         </p>
         <button className="button-banner" onClick={handleScroll}>
           Ver más

@@ -13,6 +13,7 @@ import Shipment from "./components/pages/Shipment.jsx";
 import MyProfile from "./components/pages/MyProfile.jsx";
 import React, { useState } from "react";
 import Hero from "./components/Hero.jsx";
+import AdminPage from "./components/pages/AdminPage.jsx";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -58,6 +59,7 @@ const App = () => {
             />
             <Route path="/register" element={<Register />} />
             <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/admin" element={<AdminPage />} />
             <Route
               path="/carrito"
               element={<Carrito cart={cart} removeFromCart={removeFromCart} />}
