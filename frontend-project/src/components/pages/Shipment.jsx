@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Container, Card, ProgressBar, Row, Col } from "react-bootstrap";
+import "../pages/Shipment.css";
 
 function Shipment() {
   const comprasDeArticulos = useSelector(
     (state) => state.carro.comprasDeArticulos || []
   );
+
+  useEffect(() => {
+    document.body.classList.add("no-scroll");
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, []);
 
   return (
     <Container className="my-5">
