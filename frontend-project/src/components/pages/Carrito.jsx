@@ -1,4 +1,5 @@
-import React from "react";
+import "../../components/pages/Carrito.css";
+import React, { useEffect } from "react";
 import { Container, Table, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,7 +20,9 @@ function Carrito() {
 
   const handleCheckout = () => {
     if (articulos.length === 0) {
-      alert("El carrito está vacío. Agrega productos antes de finalizar la compra.");
+      alert(
+        "El carrito está vacío. Agrega productos antes de finalizar la compra."
+      );
       return;
     }
 
@@ -62,7 +65,12 @@ function Carrito() {
       ) : (
         <>
           <div className="table-responsive shadow-sm rounded-3">
-            <Table striped bordered hover className="text-center align-middle mb-0">
+            <Table
+              striped
+              bordered
+              hover
+              className="text-center align-middle mb-0"
+            >
               <thead className="table-light">
                 <tr>
                   <th>#</th>
