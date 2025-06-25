@@ -14,6 +14,9 @@ function Carrito() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const colorPrincipal = "#01194f";
+  const colorHover = "#022066";
+
   const handleCheckout = () => {
     if (articulos.length === 0) {
       alert("El carrito está vacío. Agrega productos antes de finalizar la compra.");
@@ -29,9 +32,13 @@ function Carrito() {
     <Container className="my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <Button
-          variant="outline-primary"
           onClick={() => navigate(-1)}
           className="d-flex align-items-center rounded-pill shadow-sm"
+          style={{
+            color: colorPrincipal,
+            borderColor: colorPrincipal,
+            backgroundColor: "transparent",
+          }}
         >
           <img
             src={arrowIcon}
@@ -40,7 +47,11 @@ function Carrito() {
           />
           Volver
         </Button>
-        <h1 className="mb-0 text-primary fw-bold">Carrito de Compras</h1>
+
+        <h1 className="mb-0 fw-bold" style={{ color: colorPrincipal }}>
+          Carrito de Compras
+        </h1>
+
         <div style={{ width: "100px" }}></div>
       </div>
 
@@ -82,7 +93,6 @@ function Carrito() {
                     <td>
                       <div className="d-flex align-items-center justify-content-center">
                         <Button
-                          variant="outline-secondary"
                           size="sm"
                           onClick={() => {
                             if ((item.cantidad || 1) > 1) {
@@ -95,6 +105,11 @@ function Carrito() {
                             }
                           }}
                           className="rounded-circle px-2"
+                          style={{
+                            color: colorPrincipal,
+                            borderColor: colorPrincipal,
+                            backgroundColor: "transparent",
+                          }}
                         >
                           −
                         </Button>
@@ -109,7 +124,6 @@ function Carrito() {
                           {item.cantidad || 1}
                         </span>
                         <Button
-                          variant="outline-secondary"
                           size="sm"
                           onClick={() =>
                             dispatch(
@@ -120,6 +134,11 @@ function Carrito() {
                             )
                           }
                           className="rounded-circle px-2"
+                          style={{
+                            color: colorPrincipal,
+                            borderColor: colorPrincipal,
+                            backgroundColor: "transparent",
+                          }}
                         >
                           +
                         </Button>
@@ -127,11 +146,15 @@ function Carrito() {
                     </td>
                     <td>
                       <Button
-                        variant="outline-danger"
                         size="sm"
                         onClick={() => dispatch(eliminarDelCarro(item.id))}
                         className="rounded-circle"
                         title="Eliminar"
+                        style={{
+                          color: "#dc3545",
+                          borderColor: "#dc3545",
+                          backgroundColor: "transparent",
+                        }}
                       >
                         🗑
                       </Button>
@@ -143,9 +166,13 @@ function Carrito() {
           </div>
           <div className="d-flex justify-content-end mt-4">
             <Button
-              variant="primary"
-              className="rounded-pill px-4 py-2 fw-bold shadow"
               onClick={handleCheckout}
+              className="rounded-pill px-4 py-2 fw-bold shadow"
+              style={{
+                backgroundColor: colorPrincipal,
+                borderColor: colorPrincipal,
+                color: "#ffffff",
+              }}
             >
               Finalizar compra
             </Button>

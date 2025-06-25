@@ -90,7 +90,7 @@ body {
 }
 
 .button-banner {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: linear-gradient(135deg, #01194f, #0758b7);
   border: none;
   border-radius: 2rem;
   color: #ffffff;
@@ -103,7 +103,7 @@ body {
 }
 
 .button-banner:hover {
-  background: linear-gradient(135deg, #2a5298, #1e3c72);
+  background: linear-gradient(135deg, #0758b7, #01194f);
   transform: translateY(-2px);
 }
 
@@ -121,17 +121,17 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  animation: spin 20s linear infinite;
+  transform: rotate(0.3turn);
   flex-shrink: 0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   position: relative;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .circle-image:hover {
   transform: scale(1.15) translateY(-6px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 .hero-image {

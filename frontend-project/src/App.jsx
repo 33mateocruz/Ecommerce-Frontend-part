@@ -14,6 +14,7 @@ import MyProfile from "./components/pages/MyProfile.jsx";
 import React, { useState } from "react";
 import Hero from "./components/Hero.jsx";
 import AdminPage from "./components/pages/AdminPage.jsx";
+import ProductSlider from "./components/ProductCarousel.jsx"
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -48,6 +49,7 @@ const App = () => {
                 <>
                   <Hero />
                   <div className="container py-4"></div>
+                  <ProductSlider />
                   <ControlledCarousel />
                   <CardProducts addToCart={addToCart} />
                 </>
@@ -68,8 +70,8 @@ const App = () => {
             <Route path="/myprofile" element={<MyProfile />} />
           </Routes>
         </main>
-        <Footer />
       </div>
+      <Footer />
     </Router>
   );
 };

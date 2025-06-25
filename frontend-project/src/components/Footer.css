@@ -31,7 +31,7 @@
 
 .footer-button {
   font-size: 0.75rem;
-  background-color: #212529;
+  background-color: #01194f;
   color: white;
   padding: 0.2rem 0.6rem;
   border-radius: 50px;
@@ -41,7 +41,7 @@
 }
 
 .footer-button:hover {
-  background-color: #343a40;
+  background-color: #0758b7;
 }
 
 .footer-legal {

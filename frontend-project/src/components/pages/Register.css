@@ -68,7 +68,7 @@ nav {
 .welcome-title {
   font-size: 4rem;
   font-weight: 900;
-  color: #5279ff;
+  color: #01194f;
   margin-bottom: 3rem;
 }
 
@@ -90,7 +90,7 @@ nav {
 }
 
 .login-form input:focus {
-  border-color: #5279ff;
+  border-color: #01194f;
 }
 
 .password-wrapper {
@@ -113,7 +113,7 @@ nav {
   display: inline-block;
   margin-top: 1rem;
   font-size: 0.9rem;
-  color: #5279ff;
+  color: #01194f;
   text-decoration: none;
 }
 
@@ -128,14 +128,14 @@ nav {
   font-weight: 700;
   font-size: 1.1rem;
   border-radius: 30px;
-  background-color: #5279ff;
+  background-color: #01194f;
   color: white;
   border: none;
   cursor: pointer;
 }
 
 .btn-login:hover {
-  background-color: #3f5de8;
+  background-color: #0758b7;
 }
 
 .bottom-option {
@@ -145,7 +145,7 @@ nav {
 }
 
 .form-switch {
-  color: #5279ff;
+  color: #01194f;
   font-weight: bold;
   cursor: pointer;
 }
