@@ -58,14 +58,7 @@
       <li>HTML</li>
     </ul>
   </section>
-
-  <section>
-    <h2>📸 Capturas de pantalla</h2>
-    <p>
-      (Acá podés insertar imágenes del sitio en funcionamiento)
-    </p>
-  </section>
-
+  
   <section>
     <h2>📄 Licencia</h2>
     <p>
@@ -84,7 +77,10 @@
 
   <footer>
     <p><strong>Autor:</strong> <a href="https://github.com/33mateocruz" target="_blank">33mateocruz</a><br/>
-       <strong>Colaboradora:</strong> @yuliana-alves</p>
+       <strong>Colaborador:</strong> @yuliana-alves</p>
+       <strong>Colaborador:</strong> @festari</p>
+       <strong>Colaborador:</strong> @NicolasHernandezAnima</p>
+       <strong>Colaborador:</strong> @JoaquinRosso</p>
   </footer>
 </body>
 </html>
