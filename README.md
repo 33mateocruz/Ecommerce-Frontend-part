@@ -1,46 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maison Pet - Frontend</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 2rem;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    h1, h2 {
-      color: #2c3e50;
-    }
-    code {
-      background-color: #eee;
-      padding: 2px 4px;
-      border-radius: 4px;
-    }
-    pre {
-      background-color: #eee;
-      padding: 1rem;
-      border-radius: 6px;
-      overflow-x: auto;
-    }
-    a {
-      color: #2980b9;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    ul {
-      list-style: square;
-      margin-left: 1.5rem;
-    }
-    section {
-      margin-bottom: 2rem;
-    }
-  </style>
+
 </head>
 <body>
   <h1>Maison Pet - Frontend de E-commerce para Mascotas</h1>
