@@ -35,9 +35,9 @@ const cards = [
   {
     img: card4,
     text: "Mateo",
-    description: "UX/UI Designer con ojo artístico.",
-    linkedin: "https://www.linkedin.com/in/mateo",
-    github: "https://github.com/mateo",
+    description: "Backend dev, fullstack.",
+    linkedin: "https://www.linkedin.com/in/mateo-cruz-b1836734a/",
+    github: "https://github.com/33mateocruz",
   },
   {
     img: card5,
@@ -91,8 +91,8 @@ function AboutUs() {
             apasionados que trabajan día a día para ofrecer asesoramiento,
             alimento balanceado, juguetes, accesorios y mucho más, siempre con
             un enfoque ético y solidario. Maison Pet no es solo una pet shop. Es
-            una comunidad que defiende la vida animal con acciones reales y mucho
-            corazón.
+            una comunidad que defiende la vida animal con acciones reales y
+            mucho corazón.
           </p>
         )}
       </div>
@@ -126,11 +126,7 @@ function AboutUs() {
             <h3>{selectedCard.text}</h3>
             <p>{selectedCard.description}</p>
             <div className="modal-links">
-              <a
-                href={selectedCard.linkedin}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href={selectedCard.linkedin} target="_blank" rel="noreferrer">
                 LinkedIn
               </a>
               <a href={selectedCard.github} target="_blank" rel="noreferrer">
