@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser, loginUser, clearError } from "../../store/authSlice";
 import "./Register.css";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const dispatch = useDispatch();
+  const { users, error, isAuthenticated, currentUser } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     const setVH = () => {
@@ -17,12 +29,72 @@ const Login = () => {
     return () => window.removeEventListener("resize", setVH);
   }, []);
 
+  useEffect(() => {
+    dispatch(clearError());
+  }, [isRegistering, dispatch]);
+
   const toggleShowPassword = () => setShowPassword((prev) => !prev);
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(isRegistering ? "Registro enviado" : "Login enviado");
+
+    if (isRegistering) {
+      const emailExists = users.some((user) => user.email === formData.email);
+
+      if (emailExists) {
+        alert("Este email ya está registrado. Por favor, usa otro email.");
+        return;
+      }
+
+      dispatch(
+        registerUser({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        })
+      );
+
+      alert("Usuario registrado exitosamente!");
+
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+      });
+    } else {
+      dispatch(
+        loginUser({
+          email: formData.email,
+          password: formData.password,
+        })
+      );
+    }
   };
+
+  useEffect(() => {
+    if (error) {
+      alert(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (isAuthenticated && currentUser) {
+      alert(`¡Bienvenido, ${currentUser.username}!`);
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+      });
+    }
+  }, [isAuthenticated, currentUser]);
 
   return (
     <div className={`login-wrapper ${isRegistering ? "register-mode" : ""}`}>
@@ -38,18 +110,29 @@ const Login = () => {
                 id="username"
                 type="text"
                 placeholder="username"
+                value={formData.username}
+                onChange={handleInputChange}
                 required
               />
             </>
           )}
           <label htmlFor="email">E-mail</label>
-          <input id="email" type="email" placeholder="e-mail" required />
+          <input
+            id="email"
+            type="email"
+            placeholder="e-mail"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
           <label htmlFor="password">Password</label>
           <div className="password-wrapper">
             <input
               id="password"
               type={showPassword ? "text" : "password"}
               placeholder="password"
+              value={formData.password}
+              onChange={handleInputChange}
               required
             />
             <button
