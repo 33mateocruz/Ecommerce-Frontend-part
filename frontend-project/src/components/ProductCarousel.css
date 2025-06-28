@@ -1,8 +1,17 @@
+.customSlider-title {
+  text-align: center;
+  font-size: clamp(2.5rem, 5vw, 5rem); 
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 4rem;
+  color: #01194f;
+}
+
 .customSlider-container {
   position: relative;
   width: 96%;
-  max-width: 100%;
-  margin: 4rem auto 6rem auto;
+  max-width: 1200px; 
+  margin: auto;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -18,18 +27,16 @@
 .customSlider-track {
   display: flex;
   transition: transform 0.5s ease;
-  gap: 3rem; /* espacio entre cards */
+  gap: 3rem;
   padding-bottom: 2rem;
 }
 
 .customSlider-item {
-  width: 250px; /* ancho fijo igual que tus cards */
+  width: 250px;
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: #f8f8f8;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,12 +44,12 @@
 
 .customSlider-item:hover {
   transform: translateY(-10px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+
 }
 
 .customSlider-item img {
   width: 100%;
-  height: 180px; /* igual que tus cards */
+  height: 180px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
@@ -83,23 +90,40 @@
   margin-left: 5px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .customSlider-item {
-    width: 45vw; /* más ancha en móviles */
-  }
 
+@media (max-width: 1024px) {
+  .customSlider-item {
+    width: 200px;
+  }
   .customSlider-track {
     gap: 2rem;
   }
 }
 
+@media (max-width: 768px) {
+  .customSlider-item {
+    width: 45vw; 
+  }
+  .customSlider-track {
+    gap: 2rem;
+  }
+}
+
+
 @media (max-width: 480px) {
   .customSlider-item {
-    width: 80vw; /* casi toda la pantalla */
+    width: 80vw;
   }
-
   .customSlider-track {
     gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .customSlider-container {
+    max-width: 1400px;
+  }
+  .customSlider-item {
+    width: 280px;
   }
 }

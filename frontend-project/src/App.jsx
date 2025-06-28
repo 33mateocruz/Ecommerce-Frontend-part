@@ -14,10 +14,11 @@ import MyProfile from "./components/pages/MyProfile.jsx";
 import React, { useState } from "react";
 import Hero from "./components/Hero.jsx";
 import AdminPage from "./components/pages/AdminPage.jsx";
-import ProductSlider from "./components/ProductCarousel.jsx"
+import ProductSlider from "./components/ProductCarousel.jsx";
 
 const App = () => {
   const [cart, setCart] = useState([]);
+  const [filterCategory, setFilterCategory] = useState(null);
 
   const addToCart = (product, quantity) => {
     setCart((prevCart) => {
@@ -37,6 +38,10 @@ const App = () => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
+  const toggleFilter = () => {
+    setFilterCategory((prev) => (prev === "1" ? null : "1"));
+  };
+
   return (
     <Router>
       <div className="d-flex flex-column min-vh-100">
@@ -48,10 +53,12 @@ const App = () => {
               element={
                 <>
                   <Hero />
-                  <div className="container py-4"></div>
+                  <div className="container py-4">
+                    
+                  </div>
                   <ProductSlider />
+                  <CardProducts addToCart={addToCart} filterCategory={filterCategory} />
                   <ControlledCarousel />
-                  <CardProducts addToCart={addToCart} />
                 </>
               }
             />
@@ -68,6 +75,10 @@ const App = () => {
             />
             <Route path="/shipment" element={<Shipment />} />
             <Route path="/myprofile" element={<MyProfile />} />
+            <Route
+              path="/categoria/:categoriaId"
+              element={<CardProducts addToCart={addToCart} />}
+            />
           </Routes>
         </main>
       </div>

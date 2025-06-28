@@ -1,3 +1,23 @@
+.navbar {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 1030;
+}
+
+.sticky-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1050;
+  background-color: transparent;
+}
+
+.sticky-navbar.sticky-active {
+  background-color: white; /* o el color que quieras */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Tu CSS original */
+
 .nav {
   padding: 1%;
 }
@@ -9,12 +29,11 @@
   padding: 1rem;
 }
 
-
 .logo {
   height: 2.2rem;
 }
 
-.dropdown-link{
+.dropdown-link {
   color: black;
   text-decoration: none;
 }
@@ -27,10 +46,9 @@
 
 .btn.btn-dark.custom-dark:hover,
 .btn.btn-dark.custom-dark:focus {
-  background-color: #022066; /* un poco más claro u oscuro para hover */
+  background-color: #022066;
   border-color: #022066;
 }
-
 
 .nav-separator {
   font-weight: bold;
@@ -72,7 +90,6 @@ input,
   letter-spacing: 5px;
 }
 
-
 .d-block.d-md-none.mb-3 {
   display: flex;
   gap: 0.5rem;
@@ -86,4 +103,24 @@ input,
 .d-block.d-md-none.mb-3 button {
   height: 38px;
   padding: 0 1rem;
+}
+
+.custom-navbar {
+  position: sticky !important;
+  top: 0;
+  z-index: 1100; /* más alto que el offcanvas para que no se esconda */
+  background-color: white; /* para que no se vea transparente */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Evitar que el offcanvas se superponga con botones */
+.btn.but-tom-shop,
+.btn.but-tom-login {
+  position: relative;
+  z-index: 1200;
+}
+
+/* Si querés que el offcanvas quede sobre todo */
+.offcanvas {
+  z-index: 1150;
 }

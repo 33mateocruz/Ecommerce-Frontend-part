@@ -5,7 +5,6 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link } from "react-router-dom";
 import logo from "../components/img/logo.png";
@@ -18,15 +17,12 @@ function NavBar() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // Para manejar clicks en dropdown title (que es link)
-  const handleDropdownClick = (e) => {
-    // Evita que al clickear en el texto se abra el dropdown
-    e.stopPropagation();
-  };
-
   return (
     <>
-      <Navbar expand={false} className="bg-body-tertiary">
+      <Navbar
+        expand={false}
+        className="bg-body-tertiary sticky-top custom-navbar"
+      >
         <Container fluid>
           <Link to="/" style={{ textDecoration: "none" }}>
             <Navbar.Brand>
@@ -34,7 +30,6 @@ function NavBar() {
             </Navbar.Brand>
           </Link>
 
-          {/* Buscador en pantallas medianas o grandes */}
           <Form
             className="d-none d-md-flex align-items-center rounded shadow-sm bg-white px-0.5 mx-auto"
             style={{ gap: "0.5rem", maxWidth: "400px", flexGrow: 1 }}
@@ -77,7 +72,6 @@ function NavBar() {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              {/* Buscador en pantallas chicas */}
               <Form
                 className="d-block d-md-none mb-3"
                 style={{ display: "flex", gap: "0.5rem" }}
@@ -102,161 +96,9 @@ function NavBar() {
                 <Link to="/about-us" className="nav-link" onClick={handleClose}>
                   About Us
                 </Link>
-                <Link
-                  to="/myprofile"
-                  className="nav-link"
-                  onClick={handleClose}
-                >
+                <Link to="/myprofile" className="nav-link" onClick={handleClose}>
                   My Profile
                 </Link>
-
-                <div className="nav-separator">Categorías</div>
-
-                {/* Comida con dropdown */}
-                <NavDropdown
-                  id="dropdown-comida"
-                  title={
-                    <Link
-                      to="/categoria/comida"
-                      onClick={(e) => {
-                        e.preventDefault(); // para evitar que abra dropdown al clickear texto
-                        window.location.href = "/categoria/comida"; // navegamos
-                      }}
-                      className="dropdown-link"
-                      onMouseDown={handleDropdownClick}
-                    >
-                      Comida
-                    </Link>
-                  }
-                  className="dropdown-nav"
-                  drop="end"
-                >
-                  <NavDropdown.Item
-                    as={Link}
-                    to="/categoria/comida/perros"
-                    onClick={handleClose}
-                  >
-                    Perros
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={Link}
-                    to="/categoria/comida/gatos"
-                    onClick={handleClose}
-                  >
-                    Gatos
-                  </NavDropdown.Item>
-                </NavDropdown>
-
-                {/* Juguetes con dropdown */}
-                <NavDropdown
-                  id="dropdown-juguetes"
-                  title={
-                    <Link
-                      to="/categoria/juguetes"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        window.location.href = "/categoria/juguetes";
-                      }}
-                      className="dropdown-link"
-                      onMouseDown={handleDropdownClick}
-                    >
-                      Juguetes
-                    </Link>
-                  }
-                  className="dropdown-nav"
-                  drop="end"
-                >
-                  <NavDropdown.Item
-                    as={Link}
-                    to="/categoria/juguetes/perros"
-                    onClick={handleClose}
-                  >
-                    Perros
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={Link}
-                    to="/categoria/juguetes/gatos"
-                    onClick={handleClose}
-                  >
-                    Gatos
-                  </NavDropdown.Item>
-                </NavDropdown>
-
-                <NavDropdown
-                  id="dropdown-ropa"
-                  title={
-                    <Link
-                      to="/categoria/ropa"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        window.location.href = "/categoria/ropa";
-                      }}
-                      className="dropdown-link"
-                      onMouseDown={handleDropdownClick}
-                    >
-                      Ropa
-                    </Link>
-                  }
-                  className="dropdown-nav"
-                  drop="end"
-                >
-                  <NavDropdown.Item
-                    as={Link}
-                    to="/categoria/ropa/perros"
-                    onClick={handleClose}
-                  >
-                    Perros
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={Link}
-                    to="/categoria/ropa/gatos"
-                    onClick={handleClose}
-                  >
-                    Gatos
-                  </NavDropdown.Item>
-                </NavDropdown>
-
-                {/* Servicios con dropdown */}
-                <NavDropdown
-                  id="dropdown-servicios"
-                  title={
-                    <Link
-                      to="/servicios"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        window.location.href = "/servicios";
-                      }}
-                      className="dropdown-link"
-                      onMouseDown={handleDropdownClick}
-                    >
-                      Servicios
-                    </Link>
-                  }
-                  className="dropdown-nav"
-                  drop="end"
-                >
-                  <NavDropdown.Item
-                    as={Link}
-                    to="/servicios/duchas"
-                    onClick={handleClose}
-                  >
-                    Duchas
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={Link}
-                    to="/servicios/esquilado"
-                    onClick={handleClose}
-                  >
-                    Esquilado
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={Link}
-                    to="/servicios/entrenamiento"
-                    onClick={handleClose}
-                  >
-                    Entrenamiento
-                  </NavDropdown.Item>
-                </NavDropdown>
               </Nav>
             </Offcanvas.Body>
           </Offcanvas>

@@ -1,11 +1,29 @@
-.cards-container {
-  margin-top: 10rem;
-  margin-bottom: 10rem;
+.Container-cards{
+  margin-top: 2rem;
+}
 
+.linea-separadora {
+  height: 1px;
+  background-color: #ccc;
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.cards-container {
+  margin-top: 2rem;
+  margin-bottom: 10rem;
   display: flex;
   flex-wrap: wrap;
   gap: 5rem;
   justify-content: center;
+}
+
+.Title{
+  font-size: clamp(2.5rem, 5vw, 5rem); 
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 4rem;
+  color: #01194f;
 }
 
 .buttom-cards {
