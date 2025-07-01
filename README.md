@@ -41,10 +41,15 @@
         <pre><code>git clone https://github.com/33mateocruz/Ecommerce-Frontend-part.git</code></pre>
       </li>
       <li><strong>Instalá las dependencias:</strong>
-        <pre><code>npm install</code></pre>
+        <pre><code>npm i vite@latest</code></pre>
+        <pre><code>npm i</code></pre>
+        <pre><code>npm i @reduxjs/toolkit</code></pre>
+        <pre><code>npm i react-redux</code></pre>
+        <pre><code>cd front</code></pre>
+        <h3>Presionar tab</h3>
       </li>
       <li><strong>Ejecutá la app:</strong>
-        <pre><code>npm start</code></pre>
+        <pre><code>npm run dev</code></pre>
       </li>
     </ol>
   </section>
