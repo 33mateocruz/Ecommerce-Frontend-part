@@ -42,9 +42,9 @@ const cards = [
   {
     img: card5,
     text: "Ignacio",
-    description: "Backend Developer y fan de las APIs.",
-    linkedin: "https://www.linkedin.com/in/ignacio",
-    github: "https://github.com/ignacio",
+    description: "Fullstack developer y entusiasta de la tecnología.",
+    linkedin: "https://www.linkedin.com/in/ignaciofestari115/",
+    github: "https://github.com/festari",
   },
   {
     img: card6,

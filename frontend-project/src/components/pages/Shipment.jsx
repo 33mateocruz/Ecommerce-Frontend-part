@@ -8,13 +8,6 @@ function Shipment() {
     (state) => state.carro.comprasDeArticulos || []
   );
 
-  useEffect(() => {
-    document.body.classList.add("no-scroll");
-    return () => {
-      document.body.classList.remove("no-scroll");
-    };
-  }, []);
-
   return (
     <Container className="my-5">
       <Row className="justify-content-center">
