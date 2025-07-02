@@ -15,6 +15,8 @@ import React, { useState } from "react";
 import Hero from "./components/Hero.jsx";
 import AdminPage from "./components/pages/AdminPage.jsx";
 import ProductSlider from "./components/ProductCarousel.jsx";
+import SearchResults from "./components/SearchResults";
+import ScrollToTop from "./components/ScrollToTop"; 
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -44,6 +46,7 @@ const App = () => {
 
   return (
     <Router>
+      <ScrollToTop /> 
       <div className="d-flex flex-column min-vh-100">
         <NavBar cart={cart} />
         <main className="flex-grow-1">
@@ -53,9 +56,7 @@ const App = () => {
               element={
                 <>
                   <Hero />
-                  <div className="container py-4">
-                    
-                  </div>
+                  <div className="container py-4"></div>
                   <ProductSlider />
                   <CardProducts addToCart={addToCart} filterCategory={filterCategory} />
                   <ControlledCarousel />
@@ -67,6 +68,7 @@ const App = () => {
               element={<ProductDetail addToCart={addToCart} />}
             />
             <Route path="/register" element={<Register />} />
+            <Route path="/search" element={<SearchResults />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route

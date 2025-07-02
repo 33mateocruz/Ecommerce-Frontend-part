@@ -44,7 +44,6 @@
 
 .customSlider-item:hover {
   transform: translateY(-10px);
-
 }
 
 .customSlider-item img {
@@ -90,6 +89,7 @@
   margin-left: 5px;
 }
 
+/* Responsive */
 
 @media (max-width: 1024px) {
   .customSlider-item {
@@ -109,13 +109,17 @@
   }
 }
 
-
 @media (max-width: 480px) {
   .customSlider-item {
-    width: 80vw;
+    width: 100%; /* 👈 Solo una tarjeta visible */
   }
   .customSlider-track {
     gap: 1.5rem;
+    justify-content: flex-start; /* 👈 Alineación izquierda */
+  }
+  .customSlider-window {
+    width: 100%;
+    overflow: hidden;
   }
 }
 

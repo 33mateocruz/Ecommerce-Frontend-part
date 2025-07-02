@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { agregarAlCarro } from "../store/cartSlice";
@@ -18,7 +18,21 @@ export default function ProductCarousel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Carga productos
+  const sliderRef = useRef();
+  let startX = 0;
+
+  const handleTouchStart = (e) => {
+    startX = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!sliderRef.current) return;
+    const currentX = e.touches[0].clientX;
+    const diff = startX - currentX;
+    sliderRef.current.scrollLeft += diff;
+    startX = currentX;
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:3000/products")
@@ -34,7 +48,6 @@ export default function ProductCarousel() {
         const mezclados = unicos.sort(() => 0.5 - Math.random());
         const seleccionados = mezclados.slice(0, 5);
         setProductos(seleccionados);
-
         if (seleccionados.length < 3) {
           setItemsToShow(seleccionados.length);
         }
@@ -44,7 +57,6 @@ export default function ProductCarousel() {
       });
   }, []);
 
-  // Ajustar itemsToShow según ancho ventana
   useEffect(() => {
     function updateItems() {
       const width = window.innerWidth;
@@ -100,10 +112,12 @@ export default function ProductCarousel() {
           <div className="customSlider-window">
             <div
               className="customSlider-track"
+              ref={sliderRef}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
               style={{
                 transform: `translateX(-${(100 / itemsToShow) * currentIndex}%)`,
-                justifyContent:
-                  productos.length < itemsToShow ? "center" : "flex-start",
+                justifyContent: productos.length < itemsToShow ? "center" : "flex-start",
                 gap: "1.5rem",
               }}
             >
@@ -122,10 +136,7 @@ export default function ProductCarousel() {
                   <Card.Body>
                     <Card.Title>{producto.name}</Card.Title>
                     <Card.Text>${producto.price}</Card.Text>
-                    <Button
-                      variant="primary"
-                      onClick={() => handleAddToCart(producto)}
-                    >
+                    <Button variant="primary" onClick={() => handleAddToCart(producto)}>
                       Añadir al carrito
                     </Button>
                   </Card.Body>

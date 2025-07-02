@@ -1,21 +1,44 @@
 import "./NavegationBar.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../components/img/logo.png";
 import login from "../components/img/gente-pic.png";
 import cart from "../components/img/carro-de-la-compra.png";
 
 function NavBar() {
   const [show, setShow] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isLogged, setIsLogged] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem("user"); // o token o lo que uses
+    setIsLogged(!!user);
+  }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim() !== "") {
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+      setSearchTerm(""); // limpia el input
+      setShow(false); // cierra el menú en mobile si está abierto
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user"); // limpiás la sesión
+    setIsLogged(false);
+    navigate("/");
+  };
 
   return (
     <>
@@ -30,7 +53,9 @@ function NavBar() {
             </Navbar.Brand>
           </Link>
 
+          {/* Buscador para escritorio */}
           <Form
+            onSubmit={handleSearch}
             className="d-none d-md-flex align-items-center rounded shadow-sm bg-white px-0.5 mx-auto"
             style={{ gap: "0.5rem", maxWidth: "400px", flexGrow: 1 }}
           >
@@ -40,25 +65,42 @@ function NavBar() {
               className="border-0"
               style={{ boxShadow: "none" }}
               aria-label="Buscar"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Button variant="dark" className="custom-dark">
+            <Button variant="dark" className="custom-dark" type="submit">
               Buscar
             </Button>
           </Form>
 
+          {/* Iconos login y carrito */}
           <Link to="/carrito" style={{ textDecoration: "none" }}>
             <Button variant="outline-0" className="ms-2 buttom-shop">
               <img src={cart} alt="carro de compra" className="logo" />
             </Button>
           </Link>
-          <Link to="/register" style={{ textDecoration: "none" }}>
-            <Button variant="outline-0" className="ms-2 buttom-login">
-              <img src={login} alt="log in" className="logo" />
-            </Button>
-          </Link>
 
+          {isLogged ? (
+            <Button
+              variant="outline-0"
+              className="ms-2 buttom-login"
+              onClick={handleLogout}
+              style={{ color: "red", fontWeight: "bold" }}
+            >
+              Cerrar sesión
+            </Button>
+          ) : (
+            <Link to="/register" style={{ textDecoration: "none" }}>
+              <Button variant="outline-0" className="ms-2 buttom-login">
+                <img src={login} alt="log in" className="logo" />
+              </Button>
+            </Link>
+          )}
+
+          {/* Botón de menú para mobile */}
           <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
 
+          {/* Menú offcanvas para mobile */}
           <Offcanvas
             show={show}
             onHide={handleClose}
@@ -72,7 +114,9 @@ function NavBar() {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
+              {/* Buscador en mobile */}
               <Form
+                onSubmit={handleSearch}
                 className="d-block d-md-none mb-3"
                 style={{ display: "flex", gap: "0.5rem" }}
               >
@@ -82,8 +126,12 @@ function NavBar() {
                   className="border-0"
                   style={{ boxShadow: "none" }}
                   aria-label="Buscar"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <Button variant="dark">Buscar</Button>
+                <Button variant="dark" type="submit">
+                  Buscar
+                </Button>
               </Form>
 
               <Nav
@@ -99,6 +147,26 @@ function NavBar() {
                 <Link to="/myprofile" className="nav-link" onClick={handleClose}>
                   My Profile
                 </Link>
+
+                {isLogged ? (
+                  <Nav.Link
+                    onClick={() => {
+                      handleLogout();
+                      handleClose();
+                    }}
+                    style={{ color: "red", fontWeight: "bold", cursor: "pointer" }}
+                  >
+                    Cerrar sesión
+                  </Nav.Link>
+                ) : (
+                  <Link
+                    to="/register"
+                    className="nav-link"
+                    onClick={handleClose}
+                  >
+                    Registrarse
+                  </Link>
+                )}
               </Nav>
             </Offcanvas.Body>
           </Offcanvas>

@@ -14,11 +14,8 @@
   display: flex;
   justify-content: center;
   border-radius: 1rem;
- 
+  margin-bottom: 2rem;
 }
-
-
-
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
