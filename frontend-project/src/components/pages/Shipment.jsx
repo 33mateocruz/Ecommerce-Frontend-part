@@ -8,6 +8,11 @@ function Shipment() {
     (state) => state.carro.comprasDeArticulos || []
   );
 
+  const total = comprasDeArticulos.reduce(
+    (acc, producto) => acc + producto.price * (producto.cantidad || 1),
+    0
+  );
+
   return (
     <Container className="my-5">
       <Row className="justify-content-center">
@@ -42,6 +47,11 @@ function Shipment() {
                   <li>No hay productos comprados.</li>
                 )}
               </ul>
+              {comprasDeArticulos.length > 0 && (
+                <div className="mt-3">
+                  <strong>Total del pedido: $ {total.toFixed(2)}</strong>
+                </div>
+              )}
             </Card.Body>
           </Card>
         </Col>

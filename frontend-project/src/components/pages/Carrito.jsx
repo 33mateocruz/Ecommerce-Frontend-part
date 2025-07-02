@@ -26,9 +26,8 @@ function Carrito() {
       return;
     }
 
-    dispatch(finalizarCompra(articulos));
-    alert("¡Gracias por tu compra!");
-    navigate("/shipment");
+    // Navegar a la página de selección de método de pago
+    navigate("/seleccion-pago");
   };
 
   return (

@@ -16,7 +16,9 @@ import Hero from "./components/Hero.jsx";
 import AdminPage from "./components/pages/AdminPage.jsx";
 import ProductSlider from "./components/ProductCarousel.jsx";
 import SearchResults from "./components/SearchResults";
-import ScrollToTop from "./components/ScrollToTop"; 
+import ScrollToTop from "./components/ScrollToTop";
+import SeleccionMetodoPago from "./components/pages/SeleccionMetodoPago";
+import SeleccionDireccionHorario from "./components/pages/SeleccionDireccionHorario";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -46,7 +48,7 @@ const App = () => {
 
   return (
     <Router>
-      <ScrollToTop /> 
+      <ScrollToTop />
       <div className="d-flex flex-column min-vh-100">
         <NavBar cart={cart} />
         <main className="flex-grow-1">
@@ -58,7 +60,10 @@ const App = () => {
                   <Hero />
                   <div className="container py-4"></div>
                   <ProductSlider />
-                  <CardProducts addToCart={addToCart} filterCategory={filterCategory} />
+                  <CardProducts
+                    addToCart={addToCart}
+                    filterCategory={filterCategory}
+                  />
                   <ControlledCarousel />
                 </>
               }
@@ -80,6 +85,11 @@ const App = () => {
             <Route
               path="/categoria/:categoriaId"
               element={<CardProducts addToCart={addToCart} />}
+            />
+            <Route path="/seleccion-pago" element={<SeleccionMetodoPago />} />
+            <Route
+              path="/seleccion-direccion-horario"
+              element={<SeleccionDireccionHorario />}
             />
           </Routes>
         </main>
