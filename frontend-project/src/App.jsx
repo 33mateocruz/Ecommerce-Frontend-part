@@ -19,6 +19,7 @@ import SearchResults from "./components/SearchResults";
 import ScrollToTop from "./components/ScrollToTop";
 import SeleccionMetodoPago from "./components/pages/SeleccionMetodoPago";
 import SeleccionDireccionHorario from "./components/pages/SeleccionDireccionHorario";
+import PriceDashboard from "./components/PriceDashboard";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -91,6 +92,7 @@ const App = () => {
               path="/seleccion-direccion-horario"
               element={<SeleccionDireccionHorario />}
             />
+            <Route path="/dashboard-precios" element={<PriceDashboard />} />
           </Routes>
         </main>
       </div>

@@ -113,7 +113,13 @@ function NavBar() {
                 <div className="nav-title"> Menú 🐱</div>
               </Offcanvas.Title>
             </Offcanvas.Header>
-            <Offcanvas.Body>
+            <Offcanvas.Body
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
               {/* Buscador en mobile */}
               <Form
                 onSubmit={handleSearch}
@@ -134,17 +140,18 @@ function NavBar() {
                 </Button>
               </Form>
 
-              <Nav
-                className="justify-content-end flex-grow-1 pe-3 categories"
-                navbarScroll
-              >
+              <Nav className="flex-grow-1 pe-3 categories" navbarScroll>
                 <Link to="/" className="nav-link" onClick={handleClose}>
                   Home
                 </Link>
                 <Link to="/about-us" className="nav-link" onClick={handleClose}>
                   About Us
                 </Link>
-                <Link to="/myprofile" className="nav-link" onClick={handleClose}>
+                <Link
+                  to="/myprofile"
+                  className="nav-link"
+                  onClick={handleClose}
+                >
                   My Profile
                 </Link>
 
@@ -154,7 +161,11 @@ function NavBar() {
                       handleLogout();
                       handleClose();
                     }}
-                    style={{ color: "red", fontWeight: "bold", cursor: "pointer" }}
+                    style={{
+                      color: "red",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                    }}
                   >
                     Cerrar sesión
                   </Nav.Link>
@@ -168,6 +179,29 @@ function NavBar() {
                   </Link>
                 )}
               </Nav>
+              <div
+                style={{
+                  borderTop: "1px solid #e5e7eb",
+                  paddingTop: "1rem",
+                  marginTop: "auto",
+                }}
+              >
+                <a
+                  href="/dashboard-precios"
+                  className="nav-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={handleClose}
+                  style={{
+                    color: "#2563eb",
+                    fontWeight: "600",
+                    display: "block",
+                    textAlign: "center",
+                  }}
+                >
+                  📊 Productos Destacados
+                </a>
+              </div>
             </Offcanvas.Body>
           </Offcanvas>
         </Container>
