@@ -148,6 +148,13 @@ function NavBar() {
                   About Us
                 </Link>
                 <Link
+                  to="/acerca-proyecto"
+                  className="nav-link"
+                  onClick={handleClose}
+                >
+                  Acerca de este proyecto
+                </Link>
+                <Link
                   to="/myprofile"
                   className="nav-link"
                   onClick={handleClose}

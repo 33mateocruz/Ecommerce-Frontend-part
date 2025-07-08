@@ -20,6 +20,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import SeleccionMetodoPago from "./components/pages/SeleccionMetodoPago";
 import SeleccionDireccionHorario from "./components/pages/SeleccionDireccionHorario";
 import PriceDashboard from "./components/PriceDashboard";
+import AcercaProyecto from "./components/pages/AcercaProyecto";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -93,6 +94,7 @@ const App = () => {
               element={<SeleccionDireccionHorario />}
             />
             <Route path="/dashboard-precios" element={<PriceDashboard />} />
+            <Route path="/acerca-proyecto" element={<AcercaProyecto />} />
           </Routes>
         </main>
       </div>

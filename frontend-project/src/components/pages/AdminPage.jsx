@@ -28,6 +28,10 @@ const AdminPage = () => {
   });
 
   const [showAddUserForm, setShowAddUserForm] = useState(false);
+  const [openMenu, setOpenMenu] = useState({
+    pedidos: false,
+    productos: false,
+  });
 
   const pedidosCompletados = [
     { id: 1, cliente: "Lucía Pérez", fecha: "12/06/2025", total: "$2500" },
@@ -440,78 +444,70 @@ const AdminPage = () => {
         <div className="sidebar p-3">
           <h2 className="mb-4">Admin</h2>
 
-          <div className="dropdown mb-3">
+          <div className="sidebar-menu">
             <button
-              className="btn btn-sidebar dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+              className="btn btn-sidebar w-100 mb-1"
+              onClick={() =>
+                setOpenMenu((prev) => ({ ...prev, pedidos: !prev.pedidos }))
+              }
             >
-              Pedidos
+              Pedidos 🔽
             </button>
-            <ul className="dropdown-menu w-100">
-              <li>
+            {openMenu.pedidos && (
+              <div className="sidebar-submenu">
                 <button
-                  className="dropdown-item"
+                  className="sidebar-subitem"
                   onClick={() => setCurrentView("pedidos-completados")}
                 >
                   Completados
                 </button>
-              </li>
-              <li>
                 <button
-                  className="dropdown-item"
+                  className="sidebar-subitem"
                   onClick={() => setCurrentView("pedidos-proceso")}
                 >
                   En proceso
                 </button>
-              </li>
-              <li>
                 <button
-                  className="dropdown-item"
+                  className="sidebar-subitem"
                   onClick={() => setCurrentView("pedidos-cancelados")}
                 >
                   Cancelados
                 </button>
-              </li>
-            </ul>
-          </div>
+              </div>
+            )}
 
-          <div className="dropdown mb-3">
             <button
-              className="btn btn-sidebar dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+              className="btn btn-sidebar w-100 mb-1"
+              onClick={() =>
+                setOpenMenu((prev) => ({ ...prev, productos: !prev.productos }))
+              }
             >
-              Productos
+              Productos 🔽
             </button>
-            <ul className="dropdown-menu w-100">
-              <li>
+            {openMenu.productos && (
+              <div className="sidebar-submenu">
                 <button
-                  className="dropdown-item"
+                  className="sidebar-subitem"
                   onClick={() => setCurrentView("productos-lista")}
                 >
                   Listado
                 </button>
-              </li>
-              <li>
                 <button
-                  className="dropdown-item"
+                  className="sidebar-subitem"
                   onClick={() => setCurrentView("productos-agregar")}
                 >
                   Agregar producto
                 </button>
-              </li>
-            </ul>
-          </div>
+              </div>
+            )}
 
-          <button
-            className="btn btn-sidebar w-100 mb-3"
-            onClick={() => setCurrentView("usuarios")}
-          >
-            Usuarios
-          </button>
+            <button
+              className="btn btn-sidebar w-100 mb-3"
+              onClick={() => setCurrentView("usuarios")}
+            >
+              Usuarios
+            </button>
+          </div>
         </div>
 
         <div className="main-content p-4">{renderMainContent()}</div>
