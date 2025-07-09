@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import "./Cards.css"; // usa los mismos estilos que tus otras cards
+import "./Cards.css";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -16,30 +16,23 @@ function SearchResults() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setLoading(true);
+
     axios
-      .get("http://localhost:3000/products")
+      .get(
+        `http://localhost:3000/products/search?query=${encodeURIComponent(
+          query
+        )}`
+      )
       .then((res) => {
         setProductos(res.data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error al cargar productos:", error);
+        console.error("Error al buscar productos:", error);
         setLoading(false);
       });
-  }, []);
-
-  const productosFiltrados = productos.filter((p) => {
-    const textoBusqueda = query.toLowerCase();
-    const nombre = p.name?.toLowerCase() || "";
-    const descripcion = p.description?.toLowerCase() || "";
-    const categoria = String(p.category || "");
-
-    return (
-      nombre.includes(textoBusqueda) ||
-      descripcion.includes(textoBusqueda) ||
-      categoria.includes(textoBusqueda)
-    );
-  });
+  }, [query]);
 
   return (
     <div className="container mt-4 Container-cards">
@@ -48,11 +41,11 @@ function SearchResults() {
 
       {loading ? (
         <p>Cargando productos...</p>
-      ) : productosFiltrados.length === 0 ? (
+      ) : productos.length === 0 ? (
         <p>No se encontraron productos con esa palabra 😿</p>
       ) : (
         <div className="container cards-container">
-          {productosFiltrados.map((producto) => (
+          {productos.map((producto) => (
             <Card key={producto.id} className="card-item mb-4">
               <Card.Img
                 variant="top"
