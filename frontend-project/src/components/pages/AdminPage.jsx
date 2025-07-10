@@ -9,8 +9,9 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./AdminPage.css";
+import { useNavigate } from "react-router-dom";
 
-const AdminPage = () => {
+const AdminPage = ({ onLogout }) => {
   const [currentView, setCurrentView] = useState("dashboard");
 
   const [newProduct, setNewProduct] = useState({
@@ -62,6 +63,26 @@ const AdminPage = () => {
   const usuarios = useSelector((state) => state.userAdmin.users);
   const productosRedux = useSelector((state) => state.userAdmin.products);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const usuariosHardcodeados = [
+    {
+      id: 1,
+      nombre: "admin",
+      email: "admin@admin.com",
+      password: "admin",
+      privilegios: "admin",
+      estado: "activo",
+    },
+    {
+      id: 2,
+      nombre: "moderador",
+      email: "mod@mod.com",
+      password: "mod",
+      privilegios: "moderador",
+      estado: "activo",
+    },
+  ];
 
   useEffect(() => {
     console.log("Estado de usuarios actualizado:", usuarios);
@@ -142,6 +163,12 @@ const AdminPage = () => {
     } else {
       alert("Por favor, completa todos los campos obligatorios");
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("usuarioLogueado");
+    if (onLogout) onLogout();
+    navigate("/login");
   };
 
   const renderPedidosContent = (title, pedidos) => (
@@ -366,7 +393,7 @@ const AdminPage = () => {
                     user.estado === "activo" ? "bg-success" : "bg-warning"
                   }`}
                 >
-                  {user.estado}
+                  {user.estado === "limitado" ? "moderador" : user.estado}
                 </span>
               </td>
               <td>
@@ -397,7 +424,7 @@ const AdminPage = () => {
                   }
                   onClick={() => dispatch(toggleEstadoUsuario(user.id))}
                 >
-                  {user.estado === "activo" ? "Limitar" : "Activar"}
+                  {user.estado === "activo" ? "Moderador" : "Activar"}
                 </button>
               </td>
             </tr>
@@ -443,6 +470,12 @@ const AdminPage = () => {
       <div className="admin-container d-flex">
         <div className="sidebar p-3">
           <h2 className="mb-4">Admin</h2>
+          <button
+            className="btn btn-outline-danger w-100 mb-3"
+            onClick={handleLogout}
+          >
+            Cerrar sesión
+          </button>
 
           <div className="sidebar-menu">
             <button

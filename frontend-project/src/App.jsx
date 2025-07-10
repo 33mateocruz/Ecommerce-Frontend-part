@@ -11,7 +11,7 @@ import AboutUs from "./components/pages/AboutUs";
 import Carrito from "./components/pages/Carrito.jsx";
 import Shipment from "./components/pages/Shipment.jsx";
 import MyProfile from "./components/pages/MyProfile.jsx";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Hero from "./components/Hero.jsx";
 import AdminPage from "./components/pages/AdminPage.jsx";
 import ProductSlider from "./components/ProductCarousel.jsx";
@@ -21,10 +21,32 @@ import SeleccionMetodoPago from "./components/pages/SeleccionMetodoPago";
 import SeleccionDireccionHorario from "./components/pages/SeleccionDireccionHorario";
 import PriceDashboard from "./components/PriceDashboard";
 import AcercaProyecto from "./components/pages/AcercaProyecto";
+import LoginAdmin from "./components/pages/LoginAdmin.jsx";
+
+function isAuthedAdminOrMod() {
+  const user = JSON.parse(localStorage.getItem("usuarioLogueado"));
+  return (
+    user && (user.privilegios === "admin" || user.privilegios === "moderador")
+  );
+}
 
 const App = () => {
   const [cart, setCart] = useState([]);
   const [filterCategory, setFilterCategory] = useState(null);
+  const [authRefresh, setAuthRefresh] = useState(0); // Para forzar render
+
+  useEffect(() => {
+    const onStorage = (e) => {
+      if (e.key === "usuarioLogueado") {
+        setAuthRefresh((v) => v + 1);
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
+  // Función para refrescar manualmente tras login/logout
+  const triggerAuthRefresh = () => setAuthRefresh((v) => v + 1);
 
   const addToCart = (product, quantity) => {
     setCart((prevCart) => {
@@ -77,7 +99,20 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/search" element={<SearchResults />} />
             <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/admin" element={<AdminPage />} />
+            <Route
+              path="/login"
+              element={<LoginAdmin onLogin={triggerAuthRefresh} />}
+            />
+            <Route
+              path="/admin"
+              element={
+                isAuthedAdminOrMod() ? (
+                  <AdminPage onLogout={triggerAuthRefresh} />
+                ) : (
+                  <LoginAdmin onLogin={triggerAuthRefresh} />
+                )
+              }
+            />
             <Route
               path="/carrito"
               element={<Carrito cart={cart} removeFromCart={removeFromCart} />}
