@@ -3,18 +3,15 @@ import React, { useEffect } from "react";
 import { Container, Table, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  eliminarDelCarro,
-  finalizarCompra,
-  actualizarCantidad,
-} from "../../store/cartSlice";
+import { eliminarDelCarro, actualizarCantidad } from "../../store/cartSlice";
 import arrowIcon from "../../components/img/arrow-return-left.svg";
 
 function Carrito() {
   const articulos = useSelector((state) => state.carro.articulos || []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const token = useSelector((store) => store.auth);
+  console.log(token);
   const colorPrincipal = "#01194f";
   const colorHover = "#022066";
 
@@ -25,9 +22,13 @@ function Carrito() {
       );
       return;
     }
-
+    if (token === null) {
+      alert("Necesitas loguearte para poder comprar un producto!");
+      navigate("/register");
+    } else {
+      navigate("/seleccion-pago");
+    }
     // Navegar a la página de selección de método de pago
-    navigate("/seleccion-pago");
   };
 
   return (
@@ -181,7 +182,7 @@ function Carrito() {
                 color: "#ffffff",
               }}
             >
-              Finalizar compra
+              Finalizar Compra
             </Button>
           </div>
         </>

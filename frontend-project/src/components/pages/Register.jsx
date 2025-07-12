@@ -1,38 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser, loginUser, clearError } from "../../store/authSlice";
 import "./Register.css";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { adToken } from "../../store/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
+    surname: "",
     email: "",
+    address: "",
+    phone: "",
     password: "",
   });
-
   const dispatch = useDispatch();
-  const { users, error, isAuthenticated, currentUser } = useSelector(
-    (state) => state.auth
-  );
-
-  useEffect(() => {
-    const setVH = () => {
-      document.documentElement.style.setProperty(
-        "--vh",
-        `${window.innerHeight * 0.01}px`
-      );
-    };
-    setVH();
-    window.addEventListener("resize", setVH);
-    return () => window.removeEventListener("resize", setVH);
-  }, []);
-
-  useEffect(() => {
-    dispatch(clearError());
-  }, [isRegistering, dispatch]);
-
+  const navigate = useNavigate();
+  const token = useSelector((store) => store.auth);
+  console.log(token);
   const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
   const handleInputChange = (e) => {
@@ -43,58 +30,83 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (isRegistering) {
-      const emailExists = users.some((user) => user.email === formData.email);
+      try {
+        const response = await fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.username,
+            surname: formData.surname,
+            email: formData.email,
+            address: formData.address,
+            phone: formData.phone,
+            password: formData.password,
+          }),
+        });
 
-      if (emailExists) {
-        alert("Este email ya está registrado. Por favor, usa otro email.");
-        return;
+        if (!response.ok) {
+          const errorData = await response.json();
+          alert(errorData.message || "Error al registrar");
+          return;
+        }
+
+        alert("Usuario registrado exitosamente!");
+        setFormData({
+          username: "",
+          surname: "",
+          email: "",
+          address: "",
+          phone: "",
+          password: "",
+        });
+        setIsRegistering(false);
+      } catch (error) {
+        console.error(error);
+        alert("Error de red");
       }
-
-      dispatch(
-        registerUser({
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-        })
-      );
-
-      alert("Usuario registrado exitosamente!");
-
-      setFormData({
-        username: "",
-        email: "",
-        password: "",
-      });
     } else {
-      dispatch(
-        loginUser({
-          email: formData.email,
-          password: formData.password,
+      try {
+        const response = await fetch("http://localhost:3000/tokens", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
         })
-      );
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            dispatch(adToken(data.token));
+          });
+
+        // if (!response.ok) {
+        //   const errorData = await response.json();
+        //   alert(errorData.message || "Error al registrar");
+        //   return;
+        // }
+
+        alert("Usuario registrado exitosamente!");
+        setFormData({
+          username: "",
+          surname: "",
+          email: "",
+          address: "",
+          phone: "",
+          password: "",
+        });
+        setIsRegistering(false);
+        navigate("/");
+      } catch (error) {
+        console.error(error);
+        alert("Error de red");
+      }
     }
   };
-
-  useEffect(() => {
-    if (error) {
-      alert(error);
-    }
-  }, [error]);
-
-  useEffect(() => {
-    if (isAuthenticated && currentUser) {
-      alert(`¡Bienvenido, ${currentUser.username}!`);
-      setFormData({
-        username: "",
-        email: "",
-        password: "",
-      });
-    }
-  }, [isAuthenticated, currentUser]);
 
   return (
     <div className={`login-wrapper ${isRegistering ? "register-mode" : ""}`}>
@@ -105,17 +117,45 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="login-form">
           {isRegistering && (
             <>
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">Nombre</label>
               <input
                 id="username"
                 type="text"
-                placeholder="username"
+                placeholder="Nombre"
                 value={formData.username}
                 onChange={handleInputChange}
                 required
               />
+
+              <label htmlFor="surname">Apellido</label>
+              <input
+                id="surname"
+                type="text"
+                placeholder="Apellido"
+                value={formData.surname}
+                onChange={handleInputChange}
+              />
+
+              <label htmlFor="address">Dirección</label>
+              <input
+                id="address"
+                type="text"
+                placeholder="Dirección"
+                value={formData.address}
+                onChange={handleInputChange}
+              />
+
+              <label htmlFor="phone">Teléfono</label>
+              <input
+                id="phone"
+                type="text"
+                placeholder="Teléfono"
+                value={formData.phone}
+                onChange={handleInputChange}
+              />
             </>
           )}
+
           <label htmlFor="email">E-mail</label>
           <input
             id="email"
@@ -125,12 +165,13 @@ const Login = () => {
             onChange={handleInputChange}
             required
           />
+
           <label htmlFor="password">Password</label>
           <div className="password-wrapper">
             <input
               id="password"
               type={showPassword ? "text" : "password"}
-              placeholder="password"
+              placeholder="Password"
               value={formData.password}
               onChange={handleInputChange}
               required
@@ -144,13 +185,9 @@ const Login = () => {
               {showPassword ? "🙈" : "👁️"}
             </button>
           </div>
-          {!isRegistering && (
-            <a href="#" className="forgot-password">
-              ¿Olvidaste tu contraseña?
-            </a>
-          )}
+
           <button type="submit" className="btn-login">
-            {isRegistering ? "Register" : "Log In"}
+            {isRegistering ? "Registrarse" : "Iniciar sesión"}
           </button>
 
           <div className="bottom-option">
@@ -176,8 +213,6 @@ const Login = () => {
               </p>
             )}
           </div>
-
-          <hr />
         </form>
       </div>
 
