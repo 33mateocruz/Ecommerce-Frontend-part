@@ -49,3 +49,62 @@
   color: #6c757d;
   margin-top: 0.3rem;
 }
+
+.footer {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 0.4rem 1rem 0.2rem;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  margin-top: auto;
+
+  border-top: 1px solid #ccc;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenido interno del footer */
+.footer-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Título principal del footer */
+.footer-title {
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+  font-size: 1.1rem;
+}
+
+/* Texto descriptivo */
+.footer-text {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para los botones/enlaces del footer */
+.footer-button {
+  font-size: 0.75rem;
+  background-color: #01194f;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 50px;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 0.3rem; /* Separación horizontal entre botones */
+  transition: background-color 0.3s;
+}
+
+/* Hover para los botones */
+.footer-button:hover {
+  background-color: #0758b7;
+}
+
+/* Texto legal / derechos reservados */
+.footer-legal {
+  font-size: 0.7rem;
+  color: #6c757d;
+  margin-top: 0.3rem;
+}

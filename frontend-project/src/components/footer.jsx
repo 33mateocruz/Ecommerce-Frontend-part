@@ -17,6 +17,10 @@ const Footer = () => {
           Sobre Nosotros
         </Link>
 
+        <Link to="/acerca-proyecto" className="footer-button">
+          Acerca de este proyecto
+        </Link>
+
         <div className="footer-legal">
           © 2025 Maison Pet. Todos los derechos reservados.
         </div>

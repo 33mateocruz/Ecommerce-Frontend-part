@@ -73,7 +73,6 @@ function NavBar() {
             </Button>
           </Form>
 
-          {/* Iconos login y carrito */}
           <Link to="/carrito" style={{ textDecoration: "none" }}>
             <Button variant="outline-0" className="ms-2 buttom-shop">
               <img src={cart} alt="carro de compra" className="logo" />

@@ -1,25 +1,20 @@
-import "../../components/pages/Carrito.css";
-import React, { useEffect } from "react";
-import { Container, Table, Button, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { eliminarDelCarro, actualizarCantidad } from "../../store/cartSlice";
+import { useNavigate } from "react-router-dom";
+import { Container, Alert, Button } from "react-bootstrap";
 import arrowIcon from "../../components/img/arrow-return-left.svg";
+import "./Carrito.css"; 
 
 function Carrito() {
   const articulos = useSelector((state) => state.carro.articulos || []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((store) => store.auth);
-  console.log(token);
-  const colorPrincipal = "#01194f";
-  const colorHover = "#022066";
 
   const handleCheckout = () => {
     if (articulos.length === 0) {
-      alert(
-        "El carrito está vacío. Agrega productos antes de finalizar la compra."
-      );
+      alert("El carrito está vacío. Agrega productos antes de finalizar la compra.");
       return;
     }
     if (token === null) {
@@ -28,20 +23,14 @@ function Carrito() {
     } else {
       navigate("/seleccion-pago");
     }
-    // Navegar a la página de selección de método de pago
   };
 
   return (
-    <Container className="my-5">
+    <Container className="cart-container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <Button
           onClick={() => navigate(-1)}
-          className="d-flex align-items-center rounded-pill shadow-sm"
-          style={{
-            color: colorPrincipal,
-            borderColor: colorPrincipal,
-            backgroundColor: "transparent",
-          }}
+          className="cart-btn d-flex align-items-center rounded-pill shadow-sm"
         >
           <img
             src={arrowIcon}
@@ -51,7 +40,7 @@ function Carrito() {
           Volver
         </Button>
 
-        <h1 className="mb-0 fw-bold" style={{ color: colorPrincipal }}>
+        <h1 className="cart-title mb-0 fw-bold">
           Carrito de Compras
         </h1>
 
@@ -65,13 +54,8 @@ function Carrito() {
       ) : (
         <>
           <div className="table-responsive shadow-sm rounded-3">
-            <Table
-              striped
-              bordered
-              hover
-              className="text-center align-middle mb-0"
-            >
-              <thead className="table-light">
+            <table className="cart-table text-center align-middle mb-0">
+              <thead>
                 <tr>
                   <th>#</th>
                   <th>Imagen</th>
@@ -88,18 +72,12 @@ function Carrito() {
                       <img
                         src={item.image}
                         alt={item.name}
-                        style={{
-                          width: "100px",
-                          height: "100px",
-                          objectFit: "contain",
-                          borderRadius: "8px",
-                          boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-                        }}
+                        className="cart-product-img"
                       />
                     </td>
                     <td className="fw-semibold">{item.name || "Producto"}</td>
                     <td>
-                      <div className="d-flex align-items-center justify-content-center">
+                      <div className="quantity-controls d-flex align-items-center justify-content-center">
                         <Button
                           size="sm"
                           onClick={() => {
@@ -112,16 +90,12 @@ function Carrito() {
                               );
                             }
                           }}
-                          className="rounded-circle px-2"
-                          style={{
-                            color: colorPrincipal,
-                            borderColor: colorPrincipal,
-                            backgroundColor: "transparent",
-                          }}
+                          className="cart-btn-quantity rounded-circle px-2"
                         >
                           −
                         </Button>
                         <span
+                          className="cart-quantity-text"
                           style={{
                             minWidth: "30px",
                             textAlign: "center",
@@ -141,12 +115,7 @@ function Carrito() {
                               })
                             )
                           }
-                          className="rounded-circle px-2"
-                          style={{
-                            color: colorPrincipal,
-                            borderColor: colorPrincipal,
-                            backgroundColor: "transparent",
-                          }}
+                          className="cart-btn-quantity rounded-circle px-2"
                         >
                           +
                         </Button>
@@ -156,13 +125,8 @@ function Carrito() {
                       <Button
                         size="sm"
                         onClick={() => dispatch(eliminarDelCarro(item.id))}
-                        className="rounded-circle"
+                        className="cart-btn-remove rounded-circle"
                         title="Eliminar"
-                        style={{
-                          color: "#dc3545",
-                          borderColor: "#dc3545",
-                          backgroundColor: "transparent",
-                        }}
                       >
                         🗑
                       </Button>
@@ -170,17 +134,13 @@ function Carrito() {
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </table>
           </div>
+
           <div className="d-flex justify-content-end mt-4">
             <Button
               onClick={handleCheckout}
-              className="rounded-pill px-4 py-2 fw-bold shadow"
-              style={{
-                backgroundColor: colorPrincipal,
-                borderColor: colorPrincipal,
-                color: "#ffffff",
-              }}
+              className="cart-btn-primary rounded-pill px-4 py-2 fw-bold shadow"
             >
               Finalizar Compra
             </Button>

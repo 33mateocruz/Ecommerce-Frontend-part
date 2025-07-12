@@ -1,4 +1,4 @@
-.Container-cards{
+.Container-cards {
   margin-top: 2rem;
 }
 
@@ -14,45 +14,153 @@
   margin-bottom: 10rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 5rem;
+  gap: 2rem;
   justify-content: center;
 }
 
-.Title{
-  font-size: clamp(2.5rem, 5vw, 5rem); 
+.Title {
+  font-size: clamp(2.5rem, 5vw, 5rem);
   font-weight: bold;
   margin-top: 0;
   margin-bottom: 4rem;
   color: #01194f;
 }
 
-.buttom-cards {
-  width: 100%;
-  background-color: #01194f;
-  border: none;
-}
-
-.cards-container .card {
-  width: 250px;
+/* Card personalizada */
+.card-item {
+  width: 250px; /* ancho fijo para todas iguales */
+  min-height: 400px; /* altura mínima para que se vean igual */
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background-color: white;
 }
 
-.cards-container .card:hover {
+.card-item:hover {
   transform: translateY(-10px);
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
 }
 
-.cards-container .card img {
+.card-item img {
   width: 100%;
-  height: 180px;
-  object-fit: contain;
+  height: 200px;
+  object-fit: cover;
   transition: transform 0.3s ease;
+  flex-shrink: 0;
 }
 
-.cards-container .card:hover img {
+.card-item:hover img {
   transform: scale(1.05);
 }
 
+.card-item .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.card-item .btn-primary {
+  background-color: #01194f;
+  border: none;
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  align-self: center;
+  width: 90%;
+  margin-top: 1rem;
+}
+
+.card-item .btn-primary:hover {
+  background-color: #022066;
+  box-shadow: 0 4px 10px rgba(1,25,79,0.6);
+}
+.Container-cards {
+  margin-top: 2rem;
+}
+
+.linea-separadora {
+  height: 1px;
+  background-color: #ccc;
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.cards-container {
+  margin-top: 2rem;
+  margin-bottom: 10rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.Title {
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 4rem;
+  color: #01194f;
+}
+
+/* Card personalizada */
+.card-item {
+  width: 250px; /* ancho fijo para todas iguales */
+  min-height: 400px; /* altura mínima para que se vean igual */
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background-color: white;
+}
+
+.card-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.card-item:hover img {
+  transform: scale(1.05);
+}
+
+.card-item .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.card-item .btn-primary {
+  background-color: #01194f;
+  border: none;
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  align-self: center;
+  width: 90%;
+  margin-top: 1rem;
+}
+
+.card-item .btn-primary:hover {
+  background-color: #022066;
+  box-shadow: 0 4px 10px rgba(1,25,79,0.6);
+}

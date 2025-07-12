@@ -105,7 +105,6 @@ const MyProfile = () => {
 
   return (
     <>
-      {/* Botón toggle visible solo en móvil */}
       <button
         className="toggle-sidebar-btn"
         onClick={() => setSidebarOpen((open) => !open)}
@@ -154,11 +153,6 @@ const MyProfile = () => {
             <>
               <div className="profile-header">
                 <div className="profile-header-content">
-                  <img
-                    src="/lovable-uploads/e42add4e-61df-43be-a820-7686ebf9de1c.png"
-                    alt="Profile"
-                    className="profile-avatar"
-                  />
                   <div>
                     <h1 className="profile-name">{formData.name.toUpperCase()}</h1>
                   </div>
